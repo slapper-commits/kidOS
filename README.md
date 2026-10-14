@@ -4,7 +4,7 @@ A local-first personal computer for children, with the simplicity of a Windows 9
 
 **Developer Preview.** kidOS is for supervised experimentation. It is not yet a hardened child appliance or a ready-to-flash OS image. Physical Raspberry Pi acceptance, parent authentication, OS-level child-code containment, first-run setup and secure device updates are unfinished.
 
-[Download previews](https://github.com/slapper-commits/kidos/releases) · [Report a bug](https://github.com/slapper-commits/kidos/issues) · [Contribute](CONTRIBUTING.md) · [Roadmap](docs/ROADMAP.md)
+[Download previews](https://github.com/slapper-commits/kidOS/releases) · [Report a bug](https://github.com/slapper-commits/kidOS/issues) · [Contribute](CONTRIBUTING.md) · [Roadmap](docs/ROADMAP.md)
 
 ![kidOS desktop with the built-in Explore window](docs/images/desktop-preview.png)
 
@@ -27,8 +27,8 @@ Native apps require the Linux session setup; they do not run inside the browser 
 Install Node.js 22 or 24 and use a modern browser. No npm packages need to be downloaded.
 
 ```sh
-git clone https://github.com/slapper-commits/kidos.git
-cd kidos
+git clone https://github.com/slapper-commits/kidOS.git
+cd kidOS
 npm test
 npm start
 ```

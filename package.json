@@ -3,7 +3,7 @@
   "version": "0.0.1",
   "private": true,
   "license": "MIT",
-  "repository": { "type": "git", "url": "https://github.com/slapper-commits/kidos.git" },
+  "repository": { "type": "git", "url": "https://github.com/slapper-commits/kidOS.git" },
   "description": "A local-first desktop and app workshop for children",
   "type": "module",
   "engines": { "node": ">=22" },
