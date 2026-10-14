@@ -1,0 +1,17 @@
+.library-quick-filters, .library-item-actions, .book-preferences { display: flex; flex-wrap: wrap; gap: 10px; margin: 16px 0; align-items: end; }
+.library-quick-filters .selected { background: #e4e9cc; box-shadow: inset 1px 1px 0 #858b74; }
+.library-filters { flex-wrap: wrap; }
+.library-filters label:first-child { min-width: min(220px, 100%); }
+.library-filters label:not(:first-child) { flex: 0 1 160px; }
+.library-details { max-width: 620px; }
+.library-sequence { display: flex; align-items: center; justify-content: space-between; flex-wrap: wrap; gap: 10px; margin: 16px 0; padding: 12px; border: 1px solid #b3b5a7; background: #eeeedf; font-size: 13px; }
+.library-sequence span { flex: 1 1 160px; text-align: center; overflow-wrap: anywhere; }
+.book-preferences label { display: grid; gap: 6px; min-width: 0; flex: 1 1 150px; font-size: 13px; }
+.book-preferences select { min-width: 0; max-width: 100%; min-height: 36px; padding: 6px; font: inherit; }
+.book-paper.book-large, .os[data-mode=tv] .book-paper.book-large { font-size: 26px; }
+.library-pdf-page { display: block; max-width: 100%; height: auto; margin: auto; background: white; border: 1px solid #c9c8b8; }
+.pdf-page-text { margin-top: 15px; font-size: 14px; }
+.pdf-page-text summary { cursor: pointer; padding: 8px; }
+.pdf-page-text pre { white-space: pre-wrap; overflow-wrap: anywhere; font: 16px/1.6 Georgia, serif; background: #fffdf1; padding: 18px; }
+.media-collection { overflow-wrap: anywhere; }
+@media (max-width: 600px) { .library-filters label:not(:first-child) { flex: 1 1 100px; } .library-sequence span { order: -1; flex-basis: 100%; } .book-paper.book-large { font-size: 23px; } }

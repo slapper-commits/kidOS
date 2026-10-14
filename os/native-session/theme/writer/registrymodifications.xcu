@@ -1,0 +1,61 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!-- Original kidOS appearance defaults for LibreOffice 25.2. Seed only a new user profile. -->
+<oor:items xmlns:oor="http://openoffice.org/2001/registry" xmlns:xs="http://www.w3.org/2001/XMLSchema" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+<item oor:path="/org.openoffice.Office.Common/Appearance"><prop oor:name="LibreOfficeTheme" oor:op="fuse"><value>true</value></prop><prop oor:name="ApplicationAppearance" oor:op="fuse"><value>1</value></prop></item>
+<item oor:path="/org.openoffice.Office.Common/Misc"><prop oor:name="SymbolSet" oor:op="fuse"><value>2</value></prop><prop oor:name="SymbolStyle" oor:op="fuse"><value>colibre</value></prop><prop oor:name="ShowTipOfTheDay" oor:op="fuse"><value>false</value></prop></item>
+<item oor:path="/org.openoffice.Office.UI/ColorScheme"><prop oor:name="CurrentColorScheme" oor:op="fuse"><value>kidOS</value></prop></item>
+<item oor:path="/org.openoffice.Office.UI/ColorScheme/ColorSchemes"><node oor:name="kidOS" oor:op="replace">
+  <node oor:name="DocColor"><prop oor:name="Light" oor:op="fuse"><value>16776949</value></prop><prop oor:name="Dark" oor:op="fuse"><value>16776949</value></prop></node>
+  <node oor:name="DocBoundaries"><prop oor:name="Light" oor:op="fuse"><value>7833470</value></prop><prop oor:name="Dark" oor:op="fuse"><value>7833470</value></prop></node>
+  <node oor:name="AppBackground"><prop oor:name="Light" oor:op="fuse"><value>14211277</value></prop><prop oor:name="Dark" oor:op="fuse"><value>14211277</value></prop><prop oor:name="BackgroundType" oor:op="fuse"><value>false</value></prop></node>
+  <node oor:name="TableBoundaries"><prop oor:name="Light" oor:op="fuse"><value>7833470</value></prop><prop oor:name="Dark" oor:op="fuse"><value>7833470</value></prop></node>
+  <node oor:name="FontColor"><prop oor:name="Light" oor:op="fuse"><value>2108973</value></prop><prop oor:name="Dark" oor:op="fuse"><value>2108973</value></prop></node>
+  <node oor:name="Links"><prop oor:name="Light" oor:op="fuse"><value>2324335</value></prop><prop oor:name="Dark" oor:op="fuse"><value>2324335</value></prop></node>
+  <node oor:name="LinksVisited"><prop oor:name="Light" oor:op="fuse"><value>2309221</value></prop><prop oor:name="Dark" oor:op="fuse"><value>2309221</value></prop></node>
+  <node oor:name="Spell"><prop oor:name="Light" oor:op="fuse"><value>11748420</value></prop><prop oor:name="Dark" oor:op="fuse"><value>11748420</value></prop></node>
+  <node oor:name="Grammar"><prop oor:name="Light" oor:op="fuse"><value>2324335</value></prop><prop oor:name="Dark" oor:op="fuse"><value>2324335</value></prop></node>
+  <node oor:name="Shadow"><prop oor:name="Light" oor:op="fuse"><value>7833470</value></prop><prop oor:name="Dark" oor:op="fuse"><value>7833470</value></prop></node>
+  <node oor:name="WriterTextGrid"><prop oor:name="Light" oor:op="fuse"><value>14211277</value></prop><prop oor:name="Dark" oor:op="fuse"><value>14211277</value></prop></node>
+  <node oor:name="WriterFieldShadings"><prop oor:name="Light" oor:op="fuse"><value>15986127</value></prop><prop oor:name="Dark" oor:op="fuse"><value>15986127</value></prop></node>
+  <node oor:name="WriterIdxShadings"><prop oor:name="Light" oor:op="fuse"><value>15986127</value></prop><prop oor:name="Dark" oor:op="fuse"><value>15986127</value></prop></node>
+  <node oor:name="WriterDirectCursor"><prop oor:name="Light" oor:op="fuse"><value>2324335</value></prop><prop oor:name="Dark" oor:op="fuse"><value>2324335</value></prop></node>
+  <node oor:name="WriterSectionBoundaries"><prop oor:name="Light" oor:op="fuse"><value>7833470</value></prop><prop oor:name="Dark" oor:op="fuse"><value>7833470</value></prop></node>
+  <node oor:name="WriterHeaderFooterMark"><prop oor:name="Light" oor:op="fuse"><value>2324335</value></prop><prop oor:name="Dark" oor:op="fuse"><value>2324335</value></prop></node>
+  <node oor:name="WriterPageBreaks"><prop oor:name="Light" oor:op="fuse"><value>2324335</value></prop><prop oor:name="Dark" oor:op="fuse"><value>2324335</value></prop></node>
+  <node oor:name="WriterNonPrintChars"><prop oor:name="Light" oor:op="fuse"><value>7833470</value></prop><prop oor:name="Dark" oor:op="fuse"><value>7833470</value></prop></node>
+  <node oor:name="WindowColor"><prop oor:name="Light" oor:op="fuse"><value>15986127</value></prop><prop oor:name="Dark" oor:op="fuse"><value>15986127</value></prop></node>
+  <node oor:name="WindowTextColor"><prop oor:name="Light" oor:op="fuse"><value>2108973</value></prop><prop oor:name="Dark" oor:op="fuse"><value>2108973</value></prop></node>
+  <node oor:name="BaseColor"><prop oor:name="Light" oor:op="fuse"><value>16776949</value></prop><prop oor:name="Dark" oor:op="fuse"><value>16776949</value></prop></node>
+  <node oor:name="ButtonColor"><prop oor:name="Light" oor:op="fuse"><value>15986127</value></prop><prop oor:name="Dark" oor:op="fuse"><value>15986127</value></prop></node>
+  <node oor:name="ButtonTextColor"><prop oor:name="Light" oor:op="fuse"><value>2108973</value></prop><prop oor:name="Dark" oor:op="fuse"><value>2108973</value></prop></node>
+  <node oor:name="AccentColor"><prop oor:name="Light" oor:op="fuse"><value>2324335</value></prop><prop oor:name="Dark" oor:op="fuse"><value>2324335</value></prop></node>
+  <node oor:name="DisabledColor"><prop oor:name="Light" oor:op="fuse"><value>14211277</value></prop><prop oor:name="Dark" oor:op="fuse"><value>14211277</value></prop></node>
+  <node oor:name="DisabledTextColor"><prop oor:name="Light" oor:op="fuse"><value>6844522</value></prop><prop oor:name="Dark" oor:op="fuse"><value>6844522</value></prop></node>
+  <node oor:name="ShadowColor"><prop oor:name="Light" oor:op="fuse"><value>7833470</value></prop><prop oor:name="Dark" oor:op="fuse"><value>7833470</value></prop></node>
+  <node oor:name="SeparatorColor"><prop oor:name="Light" oor:op="fuse"><value>7833470</value></prop><prop oor:name="Dark" oor:op="fuse"><value>7833470</value></prop></node>
+  <node oor:name="FaceColor"><prop oor:name="Light" oor:op="fuse"><value>15986127</value></prop><prop oor:name="Dark" oor:op="fuse"><value>15986127</value></prop></node>
+  <node oor:name="ActiveColor"><prop oor:name="Light" oor:op="fuse"><value>2309221</value></prop><prop oor:name="Dark" oor:op="fuse"><value>2309221</value></prop></node>
+  <node oor:name="ActiveTextColor"><prop oor:name="Light" oor:op="fuse"><value>16776949</value></prop><prop oor:name="Dark" oor:op="fuse"><value>16776949</value></prop></node>
+  <node oor:name="ActiveBorderColor"><prop oor:name="Light" oor:op="fuse"><value>2108973</value></prop><prop oor:name="Dark" oor:op="fuse"><value>2108973</value></prop></node>
+  <node oor:name="FieldColor"><prop oor:name="Light" oor:op="fuse"><value>16776949</value></prop><prop oor:name="Dark" oor:op="fuse"><value>16776949</value></prop></node>
+  <node oor:name="MenuBarColor"><prop oor:name="Light" oor:op="fuse"><value>2309221</value></prop><prop oor:name="Dark" oor:op="fuse"><value>2309221</value></prop></node>
+  <node oor:name="MenuBarTextColor"><prop oor:name="Light" oor:op="fuse"><value>16776949</value></prop><prop oor:name="Dark" oor:op="fuse"><value>16776949</value></prop></node>
+  <node oor:name="MenuBarHighlightColor"><prop oor:name="Light" oor:op="fuse"><value>2324335</value></prop><prop oor:name="Dark" oor:op="fuse"><value>2324335</value></prop></node>
+  <node oor:name="MenuBarHighlightTextColor"><prop oor:name="Light" oor:op="fuse"><value>16776949</value></prop><prop oor:name="Dark" oor:op="fuse"><value>16776949</value></prop></node>
+  <node oor:name="MenuColor"><prop oor:name="Light" oor:op="fuse"><value>15986127</value></prop><prop oor:name="Dark" oor:op="fuse"><value>15986127</value></prop></node>
+  <node oor:name="MenuTextColor"><prop oor:name="Light" oor:op="fuse"><value>2108973</value></prop><prop oor:name="Dark" oor:op="fuse"><value>2108973</value></prop></node>
+  <node oor:name="MenuHighlightColor"><prop oor:name="Light" oor:op="fuse"><value>2324335</value></prop><prop oor:name="Dark" oor:op="fuse"><value>2324335</value></prop></node>
+  <node oor:name="MenuHighlightTextColor"><prop oor:name="Light" oor:op="fuse"><value>16776949</value></prop><prop oor:name="Dark" oor:op="fuse"><value>16776949</value></prop></node>
+  <node oor:name="MenuBorderColor"><prop oor:name="Light" oor:op="fuse"><value>7833470</value></prop><prop oor:name="Dark" oor:op="fuse"><value>7833470</value></prop></node>
+  <node oor:name="InactiveColor"><prop oor:name="Light" oor:op="fuse"><value>14211277</value></prop><prop oor:name="Dark" oor:op="fuse"><value>14211277</value></prop></node>
+  <node oor:name="InactiveTextColor"><prop oor:name="Light" oor:op="fuse"><value>2108973</value></prop><prop oor:name="Dark" oor:op="fuse"><value>2108973</value></prop></node>
+  <node oor:name="InactiveBorderColor"><prop oor:name="Light" oor:op="fuse"><value>7833470</value></prop><prop oor:name="Dark" oor:op="fuse"><value>7833470</value></prop></node>
+</node></item>
+<item oor:path="/org.openoffice.Office.UI.ToolbarMode/Applications/Writer"><prop oor:name="Active" oor:op="fuse"><value>Default</value></prop></item>
+<item oor:path="/org.openoffice.Office.UI.ToolbarMode/Applications/Writer/Modes/Default"><prop oor:name="Sidebar" oor:op="fuse"><value>Tabs</value></prop></item>
+<item oor:path="/org.openoffice.Office.UI.WriterWindowState/UIElements/States"><node oor:name="private:resource/toolbar/standardbar" oor:op="fuse"><prop oor:name="Visible" oor:op="fuse" oor:type="xs:boolean"><value>true</value></prop><prop oor:name="Docked" oor:op="fuse" oor:type="xs:boolean"><value>true</value></prop><prop oor:name="DockingArea" oor:op="fuse" oor:type="xs:int"><value>0</value></prop><prop oor:name="DockPos" oor:op="fuse" oor:type="xs:string"><value>0,0</value></prop><prop oor:name="Style" oor:op="fuse" oor:type="xs:int"><value>2</value></prop><prop oor:name="UIName" oor:op="fuse" oor:type="xs:string"><value>Writing</value></prop></node></item>
+<item oor:path="/org.openoffice.Office.UI.WriterWindowState/UIElements/States"><node oor:name="private:resource/toolbar/textobjectbar" oor:op="fuse"><prop oor:name="Visible" oor:op="fuse" oor:type="xs:boolean"><value>true</value></prop><prop oor:name="Docked" oor:op="fuse" oor:type="xs:boolean"><value>true</value></prop><prop oor:name="DockingArea" oor:op="fuse" oor:type="xs:int"><value>0</value></prop><prop oor:name="DockPos" oor:op="fuse" oor:type="xs:string"><value>0,1</value></prop><prop oor:name="Style" oor:op="fuse" oor:type="xs:int"><value>0</value></prop><prop oor:name="UIName" oor:op="fuse" oor:type="xs:string"><value>Formatting</value></prop></node></item>
+<item oor:path="/org.openoffice.Office.UI.Infobar/Enabled"><prop oor:name="WhatsNew" oor:op="fuse"><value>false</value></prop><prop oor:name="Donate" oor:op="fuse"><value>false</value></prop><prop oor:name="GetInvolved" oor:op="fuse"><value>false</value></prop></item>
+<item oor:path="/org.openoffice.Setup/Product"><prop oor:name="ooName" oor:op="fuse"><value>Write</value></prop></item>
+<item oor:path="/org.openoffice.Setup/Office/Factories/com.sun.star.text.TextDocument"><prop oor:name="ooSetupFactoryUIName" oor:op="fuse"><value xml:lang="en-US"></value></prop></item>
+</oor:items>

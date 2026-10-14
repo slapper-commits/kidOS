@@ -1,0 +1,12 @@
+{
+  "manifest_version": 3,
+  "name": "kidOS native applications",
+  "version": "1.2.0",
+  "description": "Open this computer's approved native applications from the local kidOS desktop.",
+  "key": "MIIBIjANBgkqhkiG9w0BAQEFAAOCAQ8AMIIBCgKCAQEAyazhsPb15wWt1bzBHYcAex6LXhQ5L+irMgfm603Z63ZOZNqemITDvzPvg+/e3nWjYHZ5m75uOO5vnDwjHfIyLJ5vxl6xLUdesTIJppY+pn/EILiTMjr6sxSffuKoACpzWD4XfdJ33TB9R3FvXKVCgk3zZHgDksJB1HpKTKbmgElEe6Z6Qg2iTMVGrpa0SuudNp0A64HvwTosPmucsjFnPYcnuBxPRSlqKJ6/gaXJ2/GpOlA4U7DB93zt4KHdGCV2KsPd26UY0M6wxGC9aq6RgevCGCYV+2lp5M9jV0QRPPZ2wNj0s/Td4AFbhALeLWLpswKN/dtF/Rk9eeOFUkgB5QIDAQAB",
+  "permissions": ["nativeMessaging"],
+  "host_permissions": ["http://127.0.0.1/*"],
+  "background": { "service_worker": "worker.mjs", "type": "module" },
+  "content_scripts": [{ "matches": ["http://127.0.0.1/*"], "js": ["content.js"], "run_at": "document_start", "all_frames": false, "match_about_blank": false, "match_origin_as_fallback": false }],
+  "content_security_policy": { "extension_pages": "script-src 'self'; object-src 'none'; connect-src 'none'" }
+}

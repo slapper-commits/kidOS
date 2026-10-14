@@ -1,0 +1,25 @@
+.mail-app { padding: 18px; max-width: 1100px; margin: 0 auto; }
+.mail-header h1 { margin: 0 0 5px; font-size: 23px; display: flex; align-items: center; gap: 8px; }
+.mail-header p { margin: 0 0 16px; color: #53535b; font-size: 12px; }
+.mail-toolbar,.mail-status { display: flex; flex-wrap: wrap; gap: 8px; align-items: center; margin-bottom: 14px; }
+.mail-toolbar select { min-width: 130px; }
+.mail-layout { display: grid; grid-template-columns: 140px minmax(0,1fr); gap: 20px; }
+.mail-folders { display: flex; flex-direction: column; gap: 8px; align-items: stretch; }
+.mail-folders button[aria-pressed="true"] { background: #d5dcef; box-shadow: inset 1px 1px #777; }
+.mail-person { border-left: 8px solid #5277aa; padding: 5px 8px; font-weight: bold; overflow-wrap: anywhere; }
+.mail-green { border-color: #4e805a; }.mail-purple { border-color: #8a69a8; }.mail-orange { border-color: #cd9456; }.mail-pink { border-color: #bf7890; }.mail-teal { border-color: #4d9292; }
+.mail-app label { display: flex; flex-direction: column; gap: 5px; margin: 0 0 12px; font-weight: bold; }
+.mail-app input,.mail-app select,.mail-app textarea { font: inherit; padding: 7px; min-width: 0; max-width: 100%; border: 1px solid #858589; background: #fff; color: #252532; border-radius: 0; }
+.mail-app textarea { width: 100%; resize: vertical; min-height: 210px; line-height: 1.55; }
+.mail-app h2 { font-size: 19px; margin: 0 0 12px; overflow-wrap: anywhere; }
+.mail-rows { background: #fff; border: 1px solid #999; }
+.mail-row { display: flex; align-items: center; border-bottom: 1px solid #dedee1; }
+.mail-row:last-child { border-bottom: 0; }
+.mail-row-button { display: flex; flex-direction: column; gap: 5px; text-align: left; width: 100%; border: 0; padding: 12px; background: transparent; color: inherit; font: inherit; cursor: pointer; overflow-wrap: anywhere; }
+.mail-row-button:hover,.mail-row-button:focus-visible { background: #edf0f8; }
+.mail-row-button span { font-size: 12px; }
+.mail-paper { padding: 20px; background: #fffffa; border: 1px solid #aaa; white-space: pre-wrap; overflow-wrap: anywhere; line-height: 1.65; min-height: 180px; margin-bottom: 15px; }
+.mail-status { font-size: 12px; margin-top: 12px; }
+.mail-setup { max-width: 430px; padding: 20px; background: #eeeef0; border: 1px solid #aaa; }
+@media (max-width: 600px) { .mail-app { padding: 12px; }.mail-layout { grid-template-columns: 1fr; gap: 12px; }.mail-folders { flex-direction: row; flex-wrap: wrap; }.mail-person { width: 100%; }.mail-header h1 { font-size: 20px; } }
+body[data-mode="tv"] .mail-app { font-size: 18px; } body[data-mode="tv"] .mail-row-button span { font-size: 16px; }

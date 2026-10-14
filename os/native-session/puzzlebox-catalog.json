@@ -1,0 +1,253 @@
+{
+  "format": 1,
+  "starters": [
+    "flood",
+    "untangle",
+    "samegame",
+    "net",
+    "solo",
+    "lightup"
+  ],
+  "puzzles": [
+    {
+      "id": "blackbox",
+      "name": "Black Box",
+      "description": "Find hidden balls using light rays.",
+      "binary": "/usr/games/sgt-blackbox"
+    },
+    {
+      "id": "bridges",
+      "name": "Bridges",
+      "description": "Join islands with bridges.",
+      "binary": "/usr/games/sgt-bridges"
+    },
+    {
+      "id": "cube",
+      "name": "Cube",
+      "description": "Roll a shape across the board.",
+      "binary": "/usr/games/sgt-cube"
+    },
+    {
+      "id": "dominosa",
+      "name": "Dominosa",
+      "description": "Find the hidden domino pairs.",
+      "binary": "/usr/games/sgt-dominosa"
+    },
+    {
+      "id": "fifteen",
+      "name": "Fifteen",
+      "description": "Slide numbered tiles into order.",
+      "binary": "/usr/games/sgt-fifteen"
+    },
+    {
+      "id": "filling",
+      "name": "Filling",
+      "description": "Fill regions with matching numbers.",
+      "binary": "/usr/games/sgt-filling"
+    },
+    {
+      "id": "flip",
+      "name": "Flip",
+      "description": "Turn all the squares the same way.",
+      "binary": "/usr/games/sgt-flip"
+    },
+    {
+      "id": "flood",
+      "name": "Flood",
+      "description": "Fill the board with one color.",
+      "binary": "/usr/games/sgt-flood"
+    },
+    {
+      "id": "galaxies",
+      "name": "Galaxies",
+      "description": "Build symmetrical regions.",
+      "binary": "/usr/games/sgt-galaxies"
+    },
+    {
+      "id": "guess",
+      "name": "Guess",
+      "description": "Work out a hidden color code.",
+      "binary": "/usr/games/sgt-guess"
+    },
+    {
+      "id": "inertia",
+      "name": "Inertia",
+      "description": "Slide around and collect gems.",
+      "binary": "/usr/games/sgt-inertia"
+    },
+    {
+      "id": "keen",
+      "name": "Keen",
+      "description": "Solve a grid of number clues.",
+      "binary": "/usr/games/sgt-keen"
+    },
+    {
+      "id": "lightup",
+      "name": "Light Up",
+      "description": "Place bulbs to light every square.",
+      "binary": "/usr/games/sgt-lightup"
+    },
+    {
+      "id": "loopy",
+      "name": "Loopy",
+      "description": "Draw one loop using the clues.",
+      "binary": "/usr/games/sgt-loopy"
+    },
+    {
+      "id": "magnets",
+      "name": "Magnets",
+      "description": "Arrange magnets to match the clues.",
+      "binary": "/usr/games/sgt-magnets"
+    },
+    {
+      "id": "map",
+      "name": "Map",
+      "description": "Color the map without matching neighbors.",
+      "binary": "/usr/games/sgt-map"
+    },
+    {
+      "id": "mines",
+      "name": "Mines",
+      "description": "Find the mines using number clues.",
+      "binary": "/usr/games/sgt-mines"
+    },
+    {
+      "id": "mosaic",
+      "name": "Mosaic",
+      "description": "Shade squares using nearby clues.",
+      "binary": "/usr/games/sgt-mosaic"
+    },
+    {
+      "id": "net",
+      "name": "Net",
+      "description": "Rotate tiles to connect the network.",
+      "binary": "/usr/games/sgt-net"
+    },
+    {
+      "id": "netslide",
+      "name": "Netslide",
+      "description": "Slide rows to connect the network.",
+      "binary": "/usr/games/sgt-netslide"
+    },
+    {
+      "id": "palisade",
+      "name": "Palisade",
+      "description": "Divide land into matching regions.",
+      "binary": "/usr/games/sgt-palisade"
+    },
+    {
+      "id": "pattern",
+      "name": "Pattern",
+      "description": "Reveal a picture from number clues.",
+      "binary": "/usr/games/sgt-pattern"
+    },
+    {
+      "id": "pearl",
+      "name": "Pearl",
+      "description": "Draw a loop through the pearls.",
+      "binary": "/usr/games/sgt-pearl"
+    },
+    {
+      "id": "pegs",
+      "name": "Pegs",
+      "description": "Jump pegs until only one remains.",
+      "binary": "/usr/games/sgt-pegs"
+    },
+    {
+      "id": "range",
+      "name": "Range",
+      "description": "Shade squares to match sight lines.",
+      "binary": "/usr/games/sgt-range"
+    },
+    {
+      "id": "rect",
+      "name": "Rectangles",
+      "description": "Divide the board into rectangles.",
+      "binary": "/usr/games/sgt-rect"
+    },
+    {
+      "id": "samegame",
+      "name": "Same Game",
+      "description": "Clear groups of matching colors.",
+      "binary": "/usr/games/sgt-samegame"
+    },
+    {
+      "id": "signpost",
+      "name": "Signpost",
+      "description": "Follow arrows to link numbers.",
+      "binary": "/usr/games/sgt-signpost"
+    },
+    {
+      "id": "singles",
+      "name": "Singles",
+      "description": "Remove duplicate numbers.",
+      "binary": "/usr/games/sgt-singles"
+    },
+    {
+      "id": "sixteen",
+      "name": "Sixteen",
+      "description": "Slide rows and columns into order.",
+      "binary": "/usr/games/sgt-sixteen"
+    },
+    {
+      "id": "slant",
+      "name": "Slant",
+      "description": "Draw diagonals using number clues.",
+      "binary": "/usr/games/sgt-slant"
+    },
+    {
+      "id": "solo",
+      "name": "Solo",
+      "description": "Solve a Sudoku number grid.",
+      "binary": "/usr/games/sgt-solo"
+    },
+    {
+      "id": "tents",
+      "name": "Tents",
+      "description": "Put a tent beside each tree.",
+      "binary": "/usr/games/sgt-tents"
+    },
+    {
+      "id": "towers",
+      "name": "Towers",
+      "description": "Arrange towers using skyline clues.",
+      "binary": "/usr/games/sgt-towers"
+    },
+    {
+      "id": "tracks",
+      "name": "Tracks",
+      "description": "Build a railway through the clues.",
+      "binary": "/usr/games/sgt-tracks"
+    },
+    {
+      "id": "twiddle",
+      "name": "Twiddle",
+      "description": "Rotate groups of tiles into order.",
+      "binary": "/usr/games/sgt-twiddle"
+    },
+    {
+      "id": "undead",
+      "name": "Undead",
+      "description": "Find hidden creatures using mirrors.",
+      "binary": "/usr/games/sgt-undead"
+    },
+    {
+      "id": "unequal",
+      "name": "Unequal",
+      "description": "Place numbers using greater-than clues.",
+      "binary": "/usr/games/sgt-unequal"
+    },
+    {
+      "id": "unruly",
+      "name": "Unruly",
+      "description": "Balance two colors in each row.",
+      "binary": "/usr/games/sgt-unruly"
+    },
+    {
+      "id": "untangle",
+      "name": "Untangle",
+      "description": "Move dots until no lines cross.",
+      "binary": "/usr/games/sgt-untangle"
+    }
+  ]
+}

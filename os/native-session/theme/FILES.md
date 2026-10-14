@@ -1,0 +1,11 @@
+# kidOS Files and window chrome
+
+`files.qss` is original kidOS application chrome for the installed PCManFM-Qt file manager. It uses the same cream, navy and teal palette as Paint and Write, with raised navigation controls, readable native menus, folder and detail views, tabs, rename/properties/confirmation dialogs and scrollbars. Native Breeze file icons, thumbnail decoding, file operations, Trash, shortcuts and accessibility remain supplied by the installed components.
+
+The fixed Files, Documents, Downloads and Trash launchers select Qt's built-in Fusion style and `/opt/kidos-native-session/theme/files.qss`. The stylesheet reuses the original local SVG controls in `paint/`. There are no downloaded theme packages, remote URLs, replacement file operations, or new preference writes for Files.
+
+PCManFM-Qt forwards subsequent folder requests to its existing session-bus instance. Existing Files windows retain their original style until they have been closed normally and Files is launched again. Installing the theme does not stop applications or file transfers. A second profile name alone does not isolate a running instance. See the [upstream application implementation](https://github.com/lxqt/pcmanfm-qt/blob/2.1.0/pcmanfm/application.cpp), [Qt application options](https://doc.qt.io/qt-6/qapplication.html) and [Qt stylesheet reference](https://doc.qt.io/qt-6/stylesheet-reference.html).
+
+`labwc.themerc` is original matching compositor chrome for application title bars, window borders, system menus and the window switcher. Ordinary-user setup seeds `~/.config/labwc/themerc-override` only when absent, with private complete-file publication and checked parents. An existing override and `rc.xml` are preserved. A running labwc session needs its normal reconfigure action or a new login to pick up a newly seeded override; setup sends no signal and restarts nothing.
+
+Scope is the kidOS launchers and the labwc session. Unrelated GTK apps, browser-owned dialogs, third-party game interiors and other desktop sessions are not restyled by this stylesheet. Native Linux visual acceptance and physical Pi acceptance are distinct from the filesystem/launcher tests. Physical Pi behavior is still pending.

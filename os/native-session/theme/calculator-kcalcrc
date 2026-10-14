@@ -1,0 +1,25 @@
+# kidOS first-use Calculator appearance for KCalc 25.04 / Qt 6.
+# Seed only when kcalcrc does not exist. Keep all family preferences intact.
+# KCalc paints key labels itself and reads these supported color preferences.
+[Colors]
+ForeColor=35,60,101
+BackColor=255,254,245
+NumberButtonsColor=243,237,207
+FunctionButtonsColor=165,200,216
+StatButtonsColor=165,200,216
+HexButtonsColor=243,237,207
+MemoryButtonsColor=241,198,93
+OperationButtonsColor=35,119,111
+ConstantsButtonsColor=165,200,216
+NumberFontsColor=32,46,45
+FunctionFontsColor=32,46,45
+StatFontsColor=32,46,45
+HexFontsColor=32,46,45
+MemoryFontsColor=32,46,45
+OperationFontsColor=255,254,245
+ConstantsFontsColor=32,46,45
+
+[Font]
+ButtonFont=DejaVu Sans,15,-1,5,50,0,0,0,0,0
+DisplayFont=DejaVu Sans,26,-1,5,75,0,0,0,0,0
+HistoryFont=DejaVu Sans,11,-1,5,50,0,0,0,0,0

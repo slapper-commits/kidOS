@@ -1,0 +1,16 @@
+{
+  "name": "kidos",
+  "version": "0.0.1",
+  "private": true,
+  "license": "MIT",
+  "repository": { "type": "git", "url": "https://github.com/slapper-commits/kidos.git" },
+  "description": "A local-first desktop and app workshop for children",
+  "type": "module",
+  "engines": { "node": ">=22" },
+  "scripts": {
+    "start": "node services/platform/server.mjs",
+    "test": "node --test services/platform/*.test.mjs",
+    "check:public": "node scripts/check-public-source.mjs",
+    "release:verify": "node scripts/verify-preview-release.mjs"
+  }
+}

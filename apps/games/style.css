@@ -1,0 +1,31 @@
+:root { color-scheme: light; font: 15px/1.4 'Trebuchet MS', Verdana, sans-serif; color: #253831; background: #fff9e9; }
+* { box-sizing: border-box; }
+body { margin: 0; }
+main { max-width: 840px; margin: auto; padding: 16px; }
+header { display: flex; align-items: center; justify-content: space-between; gap: 12px; margin-bottom: 12px; }
+h1 { margin: 0; font-size: 23px; letter-spacing: -1px; }
+.scoreboard { display: flex; gap: 18px; font: bold 13px ui-monospace, monospace; }
+.scoreboard span { white-space: nowrap; }
+.stage { position: relative; background: #223652; border: 3px solid #253831; box-shadow: 4px 4px #25383125; }
+canvas { display: block; width: 100%; height: auto; aspect-ratio: 16 / 9; image-rendering: pixelated; touch-action: manipulation; }
+.overlay { position: absolute; inset: 0; display: grid; align-content: center; justify-items: center; padding: 18px; background: #1b293ddb; color: #fff6dd; text-align: center; }
+.overlay[hidden] { display: none; }
+.overlay h2 { font-size: clamp(22px, 5vw, 36px); margin: 0 0 8px; }
+.overlay p { max-width: 380px; margin: 0 0 20px; }
+button { font: bold 15px 'Trebuchet MS', Verdana, sans-serif; color: #253831; border: 2px solid #253831; border-radius: 0; background: #e3e4d7; box-shadow: inset 2px 2px #ffffef, inset -2px -2px #7c8980; min-height: 48px; min-width: 54px; padding: 10px 19px; cursor: pointer; touch-action: manipulation; }
+button:active { box-shadow: inset 2px 2px #7c8980, inset -2px -2px #ffffef; transform: translate(1px,1px); }
+button:focus-visible, canvas:focus-visible { outline: 3px dashed #db9b32; outline-offset: 3px; }
+.primary { background: #f1c65d; }
+.controls { display: flex; align-items: center; justify-content: space-between; flex-wrap: wrap; gap: 12px; margin-top: 16px; }
+.movement { display: flex; gap: 10px; }
+.instructions { font-size: 12px; color: #52645c; margin: 14px 0 0; }
+#save-status { min-height: 20px; margin: 7px 0 0; font: 11px ui-monospace, monospace; color: #52645c; }
+#progress { width: 100%; height: 8px; display: block; margin-top: 14px; accent-color: #547e68; }
+@media (max-width: 440px) { main { padding: 10px; } header { flex-wrap: wrap; } h1 { font-size: 21px; } button { padding: 10px 15px; } .scoreboard { font-size: 12px; } }
+.scoreboard { flex-wrap: wrap; justify-content: flex-end; gap: 5px 14px; }
+button:disabled { opacity: .55; cursor: default; transform: none; }
+.round-status { margin: 12px 0 0; font: bold 12px ui-monospace, monospace; }
+.help { margin-top: 12px; padding: 10px 12px; border: 1px solid #abb4a1; font-size: 12px; background: #f3edda; }
+.help summary { cursor: pointer; font-weight: bold; }
+.help p { margin: 9px 0 0; }
+@media (max-width: 540px) { header { align-items: flex-start; flex-wrap: wrap; } .scoreboard { justify-content: flex-start; } }

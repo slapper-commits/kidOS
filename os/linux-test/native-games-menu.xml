@@ -1,0 +1,55 @@
+<?xml version="1.0"?>
+<openbox_menu>
+  <menu id="root-menu" label="kidOS applications">
+    <separator label="Applications on this computer" />
+    <item label="Open kidOS">
+      <action name="Execute" command="/opt/kidos-native-session/reopen.sh" />
+    </item>
+    <item label="Paint">
+      <action name="Execute" command="/opt/kidos-linux-test/native-files-launch.sh paint" />
+    </item>
+    <item label="Write">
+      <action name="Execute" command="/opt/kidos-linux-test/native-files-launch.sh writer" />
+    </item>
+    <item label="Calculator">
+      <action name="Execute" command="/opt/kidos-linux-test/native-files-launch.sh calculator" />
+    </item>
+    <separator />
+    <item label="Files — Pictures">
+      <action name="Execute" command="/opt/kidos-linux-test/native-files-launch.sh files" />
+    </item>
+    <item label="Documents">
+      <action name="Execute" command="/opt/kidos-linux-test/native-files-launch.sh documents" />
+    </item>
+    <item label="Downloads">
+      <action name="Execute" command="/opt/kidos-linux-test/native-files-launch.sh downloads" />
+    </item>
+    <item label="Trash">
+      <action name="Execute" command="/opt/kidos-linux-test/native-files-launch.sh trash" />
+    </item>
+    <separator />
+    <item label="Putt-Putt Saves the Zoo — demo">
+      <action name="Execute" command="/opt/kidos-linux-test/native-game-launch.sh puttzoo" />
+    </item>
+    <item label="OpenTTD">
+      <action name="Execute" command="/opt/kidos-linux-test/native-game-launch.sh openttd" />
+    </item>
+    <item label="Solitaire">
+      <action name="Execute" command="/opt/kidos-linux-test/native-files-launch.sh solitaire" />
+    </item>
+    <item label="Minesweeper">
+      <action name="Execute" command="/opt/kidos-linux-test/native-files-launch.sh minesweeper" />
+    </item>
+    <item label="Pinball">
+      <action name="Execute" command="/opt/kidos-linux-test/native-files-launch.sh pinball" />
+    </item>
+    <item label="Puzzle Box">
+      <action name="Execute" command="/opt/kidos-linux-test/native-files-launch.sh puzzlebox" />
+    </item>
+    <separator />
+    <separator label="Return to kidOS: F9" />
+    <item label="Open windows (F10)">
+      <action name="ShowMenu" menu="client-list-combined-menu" />
+    </item>
+  </menu>
+</openbox_menu>

@@ -1,0 +1,178 @@
+/* kidOS Files. Original chrome for PCManFM-Qt and its native Qt dialogs.
+ * Fusion supplies the mature controls; installed Breeze supplies file icons.
+ * Shared original SVGs resolve beside this protected stylesheet.
+ */
+QWidget {
+    font-family: "DejaVu Sans";
+    font-size: 11pt;
+    color: #202e2d;
+    selection-background-color: #233c65;
+    selection-color: #fffef5;
+}
+QMainWindow, QDialog, QMessageBox { background: #d8d8cd; }
+QLabel, QCheckBox, QRadioButton { background: transparent; }
+QMenuBar { background: #f3edcf; border-bottom: 1px solid #77877e; padding: 3px; spacing: 2px; }
+QMenuBar::item { background: transparent; padding: 5px 9px; }
+QMenuBar::item:selected, QMenuBar::item:pressed { background: #233c65; color: #fffef5; }
+QMenu { background: #fffef5; border: 2px solid #77877e; padding: 4px; }
+QMenu::item { padding: 7px 25px; border: 1px solid transparent; }
+QMenu::item:selected { background: #233c65; color: #fffef5; }
+QMenu::item:disabled { color: #77877e; }
+QMenu::separator { height: 1px; background: #77877e; margin: 4px 7px; }
+QMenu::indicator { width: 16px; height: 16px; }
+QMenu::indicator:checked { image: url(paint/check.svg); }
+QMenu::indicator:checked:selected { image: url(paint/check-light.svg); }
+QMenu::right-arrow { image: url(paint/right.svg); width: 10px; height: 10px; }
+QMenu::right-arrow:selected { image: url(paint/right-light.svg); }
+
+/* Leave navigation order, keyboard shortcuts and native path editing intact. */
+QToolBar {
+    background: #f3edcf;
+    border-top: 1px solid #ffffef;
+    border-bottom: 1px solid #77877e;
+    padding: 5px;
+    spacing: 4px;
+}
+QToolBar::separator { background: #77877e; width: 1px; height: 1px; margin: 5px; }
+QToolBar::handle { width: 7px; height: 7px; background: #d8d8cd; }
+QToolButton {
+    background: #f3edcf;
+    border-top: 2px solid #ffffef;
+    border-left: 2px solid #ffffef;
+    border-right: 2px solid #77877e;
+    border-bottom: 2px solid #77877e;
+    border-radius: 0;
+    padding: 4px;
+    min-width: 22px;
+    min-height: 22px;
+}
+QToolButton:hover { background: #fffef5; border-color: #23776f; }
+QToolButton:checked { background: #f1c65d; border: 2px solid #23776f; }
+QToolButton:pressed { background: #b3cd92; border: 2px solid #53625d; }
+QToolButton:focus { border: 2px solid #233c65; }
+QToolButton:disabled { color: #77877e; background: #d8d8cd; }
+QToolButton::menu-indicator { image: url(paint/down.svg); width: 8px; height: 8px; }
+QToolButton::menu-button { width: 16px; border-left: 1px solid #77877e; }
+QToolButton::menu-arrow { image: url(paint/down.svg); width: 8px; height: 8px; }
+
+/* Folder, list, details and places views retain native icons and thumbnails.
+ * Avoid fixed item sizes: PCManFM manages icon-grid and details geometry. */
+QAbstractItemView {
+    background: #fffef5;
+    alternate-background-color: #f3edcf;
+    border: 1px solid #77877e;
+    selection-background-color: #233c65;
+    selection-color: #fffef5;
+}
+QTreeView::item:selected, QListView::item:selected, QTableView::item:selected {
+    background: #233c65;
+    color: #fffef5;
+}
+QHeaderView::section {
+    background: #f3edcf;
+    color: #202e2d;
+    border-top: 1px solid #ffffef;
+    border-left: 1px solid #ffffef;
+    border-right: 1px solid #77877e;
+    border-bottom: 1px solid #77877e;
+    padding: 6px;
+}
+QHeaderView::up-arrow { image: url(paint/up.svg); width: 9px; height: 9px; }
+QHeaderView::down-arrow { image: url(paint/down.svg); width: 9px; height: 9px; }
+QSplitter::handle { background: #d8d8cd; width: 5px; height: 5px; }
+QSplitter::handle:hover { background: #23776f; }
+QTabWidget::pane { background: #f3edcf; border: 1px solid #77877e; }
+QTabBar::tab { background: #d8d8cd; border: 1px solid #77877e; padding: 7px 12px; }
+QTabBar::tab:selected { background: #f3edcf; border-bottom-color: #f3edcf; font-weight: bold; }
+QTabBar::tab:hover { color: #23776f; }
+QTabBar::close-button { image: url(paint/close.svg); width: 14px; height: 14px; }
+QTabBar::close-button:hover { background: #f1c65d; }
+QStatusBar { background: #f3edcf; }
+QStatusBar::item { border: 0; }
+QStatusBar QLabel { padding: 4px; }
+QToolTip { background: #fffef5; color: #202e2d; border: 2px solid #233c65; padding: 6px; }
+
+/* Rename, properties, create-folder, copy-progress and confirmation dialogs. */
+QPushButton {
+    background: #f3edcf;
+    border-top: 2px solid #ffffef;
+    border-left: 2px solid #ffffef;
+    border-right: 2px solid #77877e;
+    border-bottom: 2px solid #77877e;
+    border-radius: 0;
+    padding: 7px 14px;
+    min-height: 20px;
+}
+QPushButton:default { background: #f1c65d; font-weight: bold; }
+QPushButton:hover { border-color: #23776f; }
+QPushButton:focus { border: 2px solid #233c65; }
+QPushButton:pressed { background: #b3cd92; border: 2px solid #53625d; }
+QPushButton:disabled { color: #77877e; background: #d8d8cd; }
+QLineEdit, QSpinBox, QDoubleSpinBox, QComboBox, QTextEdit, QPlainTextEdit {
+    background: #fffef5;
+    border: 2px solid #77877e;
+    border-radius: 0;
+    padding: 5px;
+    min-height: 20px;
+}
+QLineEdit:focus, QSpinBox:focus, QDoubleSpinBox:focus, QComboBox:focus,
+QTextEdit:focus, QPlainTextEdit:focus { border-color: #23776f; }
+QLineEdit:disabled, QSpinBox:disabled, QDoubleSpinBox:disabled, QComboBox:disabled { background: #d8d8cd; color: #77877e; }
+QComboBox { padding-right: 26px; }
+QComboBox::drop-down {
+    subcontrol-origin: padding;
+    subcontrol-position: top right;
+    width: 24px;
+    background: #f3edcf;
+    border-left: 1px solid #77877e;
+}
+QComboBox::down-arrow { image: url(paint/down.svg); width: 10px; height: 10px; }
+QSpinBox, QDoubleSpinBox { padding-right: 23px; }
+QSpinBox::up-button, QDoubleSpinBox::up-button {
+    subcontrol-origin: border;
+    subcontrol-position: top right;
+    width: 21px;
+    background: #f3edcf;
+    border: 1px solid #77877e;
+}
+QSpinBox::down-button, QDoubleSpinBox::down-button {
+    subcontrol-origin: border;
+    subcontrol-position: bottom right;
+    width: 21px;
+    background: #f3edcf;
+    border: 1px solid #77877e;
+}
+QSpinBox::up-arrow, QDoubleSpinBox::up-arrow { image: url(paint/up.svg); width: 9px; height: 9px; }
+QSpinBox::down-arrow, QDoubleSpinBox::down-arrow { image: url(paint/down.svg); width: 9px; height: 9px; }
+QSpinBox::up-arrow:disabled, QDoubleSpinBox::up-arrow:disabled { image: url(paint/up-disabled.svg); }
+QSpinBox::down-arrow:disabled, QDoubleSpinBox::down-arrow:disabled { image: url(paint/down-disabled.svg); }
+QCheckBox, QRadioButton { spacing: 7px; min-height: 26px; }
+QCheckBox::indicator { width: 17px; height: 17px; background: #fffef5; border: 2px solid #77877e; }
+QCheckBox::indicator:checked { image: url(paint/check.svg); background: #f1c65d; border-color: #23776f; }
+QCheckBox::indicator:indeterminate { image: url(paint/minus.svg); }
+QCheckBox::indicator:disabled { background: #d8d8cd; }
+QCheckBox::indicator:focus, QCheckBox::indicator:hover { border-color: #233c65; }
+QRadioButton::indicator { width: 17px; height: 17px; border-radius: 9px; background: #fffef5; border: 2px solid #77877e; }
+QRadioButton::indicator:checked { image: url(paint/radio.svg); border-color: #23776f; }
+QRadioButton::indicator:disabled { background: #d8d8cd; }
+QRadioButton::indicator:focus, QRadioButton::indicator:hover { border-color: #233c65; }
+QGroupBox { border: 1px solid #77877e; margin-top: 13px; padding: 10px 7px 7px; font-weight: bold; }
+QGroupBox::title { subcontrol-origin: margin; left: 9px; padding: 0 5px; }
+QProgressBar { background: #fffef5; border: 2px solid #77877e; text-align: center; min-height: 20px; }
+QProgressBar::chunk { background: #b3cd92; }
+
+QScrollBar:vertical { background: #d8d8cd; width: 18px; margin: 18px 0; }
+QScrollBar:horizontal { background: #d8d8cd; height: 18px; margin: 0 18px; }
+QScrollBar::handle:vertical { background: #f3edcf; border: 1px solid #77877e; min-height: 25px; }
+QScrollBar::handle:horizontal { background: #f3edcf; border: 1px solid #77877e; min-width: 25px; }
+QScrollBar::handle:hover { background: #f1c65d; }
+QScrollBar::add-line, QScrollBar::sub-line { background: #f3edcf; border: 1px solid #77877e; }
+QScrollBar::add-line:vertical { height: 17px; subcontrol-origin: margin; subcontrol-position: bottom; }
+QScrollBar::sub-line:vertical { height: 17px; subcontrol-origin: margin; subcontrol-position: top; }
+QScrollBar::add-line:horizontal { width: 17px; subcontrol-origin: margin; subcontrol-position: right; }
+QScrollBar::sub-line:horizontal { width: 17px; subcontrol-origin: margin; subcontrol-position: left; }
+QScrollBar::up-arrow { image: url(paint/up.svg); width: 9px; height: 9px; }
+QScrollBar::down-arrow { image: url(paint/down.svg); width: 9px; height: 9px; }
+QScrollBar::left-arrow { image: url(paint/left.svg); width: 9px; height: 9px; }
+QScrollBar::right-arrow { image: url(paint/right.svg); width: 9px; height: 9px; }
+QScrollBar::add-page, QScrollBar::sub-page { background: #d8d8cd; }

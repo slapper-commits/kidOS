@@ -1,0 +1,27 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>kidOS game</title>
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+<main>
+  <header><h1 id="title">Game</h1><div class="scoreboard"><span>Score <b id="score">0</b></span><span>Best <b id="best">0</b></span><span>Stars <b id="stars">0</b></span><span><b id="time-left">40</b>s left</span></div></header>
+  <div class="stage">
+    <canvas id="game" width="640" height="360" tabindex="0" aria-label="Game area"></canvas>
+    <div id="overlay" class="overlay"><h2 id="message">Ready?</h2><p id="description"></p><button id="start" class="primary">Let's play</button></div>
+  </div>
+  <progress id="progress" max="100" value="0" aria-label="Journey progress"></progress>
+  <div class="controls"><div id="movement" class="movement"></div><button id="pause" disabled>Pause</button></div>
+  <p id="round-status" class="round-status" role="status">Ready to play</p>
+  <p id="instructions" class="instructions"></p>
+  <details id="help" class="help"><summary>How to play</summary><p id="help-text"></p><p>A star is worth 10 points. Finish the round for 50 extra points. Your score also grows as you travel. Use the buttons below the game or tap the game area.</p><p>Enter starts or resumes a round. P or Escape pauses. Tab moves between controls. Leaving the window pauses your round; choose Keep playing when you come back.</p></details>
+  <p id="save-status" role="status">Practice round · scores stay in this window unless opened from Play.</p>
+</main>
+<script src="script.js"></script>
+<script src="engine.js"></script>
+<script src="play.js"></script>
+</body>
+</html>

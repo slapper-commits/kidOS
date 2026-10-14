@@ -1,0 +1,33 @@
+<?xml version="1.0"?>
+<labwc_config>
+  <keyboard>
+    <default />
+    <keybind key="F8">
+      <action name="ShowMenu" menu="root-menu">
+        <position><x>center</x><y>center</y></position>
+      </action>
+    </keybind>
+    <keybind key="F9">
+      <action name="ForEach">
+        <query identifier="chrome-127.0.0.1__-Default" title="kidOS" />
+        <then><action name="Focus" /><action name="Raise" /></then>
+        <none><action name="Execute" command="/opt/kidos-native-session/reopen.sh" /></none>
+      </action>
+    </keybind>
+    <keybind key="F10">
+      <action name="ShowMenu" menu="client-list-combined-menu">
+        <position><x>center</x><y>center</y></position>
+      </action>
+    </keybind>
+  </keyboard>
+  <mouse><default /></mouse>
+  <!-- The desktop is a background surface: clicking a shortcut must not
+       raise Chromium over every native application already open. -->
+  <windowRules>
+    <windowRule identifier="chrome-127.0.0.1__-Default" serverDecoration="no">
+      <action name="SetDecorations" decorations="none" />
+      <action name="ToggleAlwaysOnBottom" />
+      <action name="Maximize" />
+    </windowRule>
+  </windowRules>
+</labwc_config>

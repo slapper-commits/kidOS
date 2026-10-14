@@ -1,0 +1,34 @@
+<svg xmlns="http://www.w3.org/2000/svg" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="square" stroke-linejoin="miter">
+  <!-- Original kidOS line icons; no external font or icon dependency. -->
+  <symbol id="stuff" viewBox="0 0 32 32"><path d="M3 10V6h10l3 4h13v17H3z"/><path d="M3 13h26l-4 14H3z"/></symbol>
+  <symbol id="make" viewBox="0 0 32 32"><path d="m8 20 15-15 5 5-15 15-8 3zM20 8l5 5M8 20l5 5M5 28l3-8"/></symbol>
+  <symbol id="play" viewBox="0 0 32 32"><path d="M10 9h12l4 4 3 11-4 3-7-6h-4l-7 6-4-3 3-11zM8 15h8M12 11v8"/><path d="M22 14h.1M25 18h.1" stroke-width="3"/></symbol>
+  <symbol id="library" viewBox="0 0 32 32"><path d="M16 8C11 4 7 4 3 5v21c4-1 8-1 13 2 5-3 9-3 13-2V5c-4-1-8-1-13 3v20M7 10l5 1M7 15l5 1M20 11l5-1M20 16l5-1"/></symbol>
+  <symbol id="explore" viewBox="0 0 32 32"><circle cx="16" cy="16" r="12"/><path d="m21 10-3 10-8 3 3-10zM16 4V2M16 30v-2M4 16H2M30 16h-2"/></symbol>
+  <symbol id="mail" viewBox="0 0 32 32"><path d="M3 7h26v19H3zM3 7l13 11L29 7M3 26l9-11M29 26l-9-11"/></symbol>
+  <symbol id="code" viewBox="0 0 32 32"><path d="m10 8-8 8 8 8M22 8l8 8-8 8M19 4l-6 24"/></symbol>
+  <symbol id="home" viewBox="0 0 32 32"><path d="m2 15 14-12 14 12M6 12v17h20V12M12 29V18h8v11"/></symbol>
+  <symbol id="blocks" viewBox="0 0 32 32"><path d="M3 3h11v11H3zM18 3h11v11H18zM3 18h11v11H3zM18 18h11v11H18z"/></symbol>
+  <symbol id="close" viewBox="0 0 32 32"><path d="m7 7 18 18M25 7 7 25"/></symbol>
+  <symbol id="back" viewBox="0 0 32 32"><path d="M28 16H4M14 5 3 16l11 11"/></symbol>
+  <symbol id="save" viewBox="0 0 32 32"><path d="M4 3h21l4 4v22H4zM10 3v9h13V3M10 29V18h13v11"/></symbol>
+  <symbol id="download" viewBox="0 0 32 32"><path d="M16 3v18M9 14l7 7 7-7M4 22v7h24v-7"/></symbol>
+  <symbol id="rocket" viewBox="0 0 32 32"><path d="M11 19C11 9 22 3 28 3c0 6-6 17-16 17zM11 13 4 15l-2 7 10-2M19 20l-2 8-7 2 2-10M8 24l-5 5"/><circle cx="21" cy="10" r="3"/></symbol>
+  <symbol id="plus" viewBox="0 0 32 32"><path d="M16 5v22M5 16h22"/></symbol>
+  <symbol id="file" viewBox="0 0 32 32"><path d="M7 2h13l7 7v21H7zM20 2v8h7M12 16h10M12 21h10M12 26h7"/></symbol>
+  <symbol id="trash" viewBox="0 0 32 32"><path d="M5 8h22M11 8V4h10v4M8 8l2 21h12l2-21M13 13v11M19 13v11"/></symbol>
+  <symbol id="picture" viewBox="0 0 32 32"><path d="M3 4h26v24H3zM4 25l8-10 6 7 5-5 5 8"/><circle cx="22" cy="11" r="3"/></symbol>
+  <symbol id="music" viewBox="0 0 32 32"><path d="M12 25V8l15-4v18M12 12l15-4"/><ellipse cx="8" cy="25" rx="4" ry="3"/><ellipse cx="23" cy="22" rx="4" ry="3"/></symbol>
+  <symbol id="film" viewBox="0 0 32 32"><path d="M3 5h26v23H3zM9 5v23M23 5v23M3 11h6M3 17h6M3 23h6M23 11h6M23 17h6M23 23h6M13 11l7 5-7 5z"/></symbol>
+  <symbol id="check" viewBox="0 0 32 32"><path d="m4 16 8 8L28 7"/></symbol>
+  <symbol id="menu" viewBox="0 0 32 32"><path d="M4 8h24M4 16h24M4 24h24"/></symbol>
+  <symbol id="paint" viewBox="0 0 32 32"><path d="m18 19 8-15 3 2-9 15M18 19l3 2c-1 6-5 8-11 7 4-2 1-6 8-9M13 27H3V6h17M7 11h6M7 16h5"/></symbol>
+  <symbol id="writer" viewBox="0 0 32 32"><path d="M6 3h16l5 5v10M22 3v6h5M6 3v26h12M10 11h8M10 16h11M10 21h5m4 3 8-8 3 3-8 8-5 2zM25 18l3 3"/></symbol>
+  <symbol id="calculator" viewBox="0 0 32 32"><path d="M6 3h20v26H6zM10 7h12v6H10zM10 18h3M11.5 16.5v3M18 18h4M10 22l3 3M13 22l-3 3M18 22h4M18 25h4"/></symbol>
+  <symbol id="car" viewBox="0 0 32 32"><path d="m5 15 3-8h14l5 8M3 15h26v10H3zM9 15h13M8 25v4H4v-4M28 25v4h-4v-4M6 20h4M22 20h4M15 7v8"/></symbol>
+  <symbol id="train" viewBox="0 0 32 32"><path d="M8 4h16v21H8zM8 14h16M12 4v10M20 4v10M10 25l-5 5M22 25l5 5M8 28h16M12 20h.1M20 20h.1"/><path d="M12 1h8"/></symbol>
+  <symbol id="solitaire" viewBox="0 0 32 32"><path d="M7 23H3V3h18v4M10 8h19v21H10z"/><path d="M19.5 24 14 18.5c-3-3 1-7 5.5-3 4.5-4 8.5 0 5.5 3zM14 12h1M25 25h1"/></symbol>
+  <symbol id="minesweeper" viewBox="0 0 32 32"><path d="M3 3h26v26H3zM3 12h26M3 21h26M12 3v26M21 3v26M16 19v-6l4 2-4 2M15 19h3"/><path d="m6 25 2-2v4M24 6h2l-2 3h2"/></symbol>
+  <symbol id="pinball" viewBox="0 0 32 32"><path d="M6 29V12a10 10 0 0 1 20 0v17M6 29h20M23 27V12M9 22l5 3-1 2-5-3M20 22l-4 3 1 2 4-3"/><circle cx="12" cy="10" r="3"/><circle cx="20" cy="15" r="2"/><circle cx="11" cy="18" r="1"/></symbol>
+  <symbol id="puzzlebox" viewBox="0 0 32 32"><path d="M5 9h7V6a4 4 0 0 1 8 0v3h7v7h-3a3 3 0 0 0 0 6h3v7H5v-7h3a3 3 0 0 0 0-6H5z"/></symbol>
+</svg>

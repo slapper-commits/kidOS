@@ -1,0 +1,15 @@
+node_modules/
+.data/
+.env
+.env.*
+!.env.example
+work/
+*.img
+*.img.xz
+*.qcow2
+*.iso
+*.pem
+*.key
+*.p12
+*.pfx
+.DS_Store

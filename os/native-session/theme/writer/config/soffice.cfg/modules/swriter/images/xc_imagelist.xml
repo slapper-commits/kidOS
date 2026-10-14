@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!-- Original kidOS icons. Native command mapping; no executable content. -->
+<image:imagescontainer xmlns:image="http://openoffice.org/2001/image" xmlns:xlink="http://www.w3.org/1999/xlink">
+  <image:images xlink:href="Bitmaps/xc_userimages.png">
+    <image:entry image:command=".uno:AddDirect" image:bitmap-index="0"/>
+    <image:entry image:command=".uno:OpenFromWriter" image:bitmap-index="1"/>
+    <image:entry image:command=".uno:Save" image:bitmap-index="2"/>
+    <image:entry image:command=".uno:Undo" image:bitmap-index="3"/>
+    <image:entry image:command=".uno:Redo" image:bitmap-index="4"/>
+    <image:entry image:command=".uno:InsertGraphic" image:bitmap-index="5"/>
+    <image:entry image:command=".uno:ExportDirectToPDF" image:bitmap-index="6"/>
+    <image:entry image:command=".uno:Print" image:bitmap-index="7"/>
+    <image:entry image:command=".uno:HelpIndex" image:bitmap-index="8"/>
+  </image:images>
+</image:imagescontainer>

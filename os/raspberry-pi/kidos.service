@@ -1,0 +1,42 @@
+[Unit]
+Description=kidOS supervised developer pilot
+After=local-fs.target
+StartLimitIntervalSec=60
+StartLimitBurst=5
+
+[Service]
+Type=simple
+User=kidos
+Group=kidos
+WorkingDirectory=/opt/kidos/current
+ExecStartPre=/opt/kidos-node/v24.21.0/bin/node /opt/kidos/current/os/raspberry-pi/check-runtime.mjs
+ExecStart=/opt/kidos-node/v24.21.0/bin/node /opt/kidos/current/services/platform/server.mjs
+Environment=NODE_ENV=production
+Environment=NODE_OPTIONS=
+Environment=KIDOS_DATA_DIR=/var/lib/kidos
+Environment=KIDOS_PORT=8787
+Environment=KIDOS_RUNNER_PORT=8788
+UMask=0077
+StateDirectory=kidos
+StateDirectoryMode=0700
+NoNewPrivileges=true
+ProtectSystem=strict
+ProtectHome=true
+PrivateTmp=true
+PrivateDevices=true
+ProtectKernelTunables=true
+ProtectKernelModules=true
+ProtectControlGroups=true
+RestrictSUIDSGID=true
+RestrictRealtime=true
+LockPersonality=true
+CapabilityBoundingSet=
+RestrictAddressFamilies=AF_UNIX AF_INET AF_INET6
+ReadWritePaths=/var/lib/kidos
+TasksMax=64
+Restart=on-failure
+RestartSec=2
+TimeoutStopSec=30
+
+[Install]
+WantedBy=multi-user.target

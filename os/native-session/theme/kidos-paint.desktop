@@ -1,0 +1,12 @@
+[Desktop Entry]
+Type=Application
+Name=Paint
+GenericName=Image Editor
+Comment=Draw and paint in kidOS
+Exec=/usr/bin/kolourpaint -style Fusion -stylesheet /opt/kidos-native-session/theme/paint.qss %F
+TryExec=/usr/bin/kolourpaint
+Icon=/opt/kidos-native-session/theme/paint-app.svg
+Terminal=false
+NoDisplay=true
+MimeType=image/png;image/jpeg;image/bmp;image/webp;
+Categories=Graphics;2DGraphics;RasterGraphics;

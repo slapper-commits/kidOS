@@ -1,0 +1,46 @@
+name: Preview release
+on:
+  workflow_dispatch:
+    inputs:
+      version:
+        description: 'New pilot version (for example 0.0.1-pilot.17)'
+        required: true
+        type: string
+permissions:
+  contents: read
+concurrency:
+  group: preview-release
+  cancel-in-progress: false
+jobs:
+  release:
+    if: github.ref == 'refs/heads/main'
+    runs-on: ubuntu-24.04
+    timeout-minutes: 15
+    permissions:
+      contents: write
+    env:
+      RELEASE_VERSION: ${{ inputs.version }}
+    steps:
+      - uses: actions/checkout@11d5960a326750d5838078e36cf38b85af677262 # v4
+        with:
+          persist-credentials: false
+      - uses: actions/setup-node@49933ea5288caeca8642d1e84afbd3f7d6820020 # v4
+        with:
+          node-version: '24'
+      - name: Validate version and release notes
+        run: |
+          node --input-type=module -e 'import {checkVersion} from "./os/raspberry-pi/release.mjs"; import {access} from "node:fs/promises"; const version = checkVersion(process.env.RELEASE_VERSION); await access(`docs/releases/${version}.md`);'
+      - run: npm run check:public
+      - run: npm test
+      - run: npm run release:verify -- --version "$RELEASE_VERSION" --output-dir work/public-release
+      - name: Create draft prerelease for review
+        env:
+          GH_TOKEN: ${{ github.token }}
+          GH_REPO: ${{ github.repository }}
+        run: |
+          gh release create "v$RELEASE_VERSION" \
+            "work/public-release/kidos-$RELEASE_VERSION.tar" \
+            "work/public-release/kidos-$RELEASE_VERSION.tar.sha256" \
+            --target "$GITHUB_SHA" --draft --prerelease --latest=false \
+            --title "kidOS $RELEASE_VERSION — Developer Preview" \
+            --notes-file "docs/releases/$RELEASE_VERSION.md"

@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!-- Original kidOS toolbar arrangement; each command remains LibreOffice native. -->
+<toolbar:toolbar xmlns:toolbar="http://openoffice.org/2001/toolbar" xmlns:xlink="http://www.w3.org/1999/xlink">
+  <toolbar:toolbaritem xlink:href=".uno:AddDirect" toolbar:text="New"/>
+  <toolbar:toolbaritem xlink:href=".uno:OpenFromWriter" toolbar:text="Open"/>
+  <toolbar:toolbaritem xlink:href=".uno:Save" toolbar:text="Save"/>
+  <toolbar:toolbarseparator/>
+  <toolbar:toolbaritem xlink:href=".uno:Undo" toolbar:text="Undo"/>
+  <toolbar:toolbaritem xlink:href=".uno:Redo" toolbar:text="Redo"/>
+  <toolbar:toolbarseparator/>
+  <toolbar:toolbaritem xlink:href=".uno:InsertGraphic" toolbar:text="Picture"/>
+  <toolbar:toolbaritem xlink:href=".uno:ExportDirectToPDF" toolbar:text="PDF"/>
+  <toolbar:toolbaritem xlink:href=".uno:Print" toolbar:text="Print"/>
+  <toolbar:toolbarseparator/>
+  <toolbar:toolbaritem xlink:href=".uno:HelpIndex" toolbar:text="Help"/>
+</toolbar:toolbar>

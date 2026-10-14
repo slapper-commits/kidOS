@@ -1,0 +1,195 @@
+{
+  "schemaVersion": 1,
+  "scope": "Local supervised Linux VM native-game proof of concept; excluded from generic source/image allowlists",
+  "recordedAt": "2026-10-09T01:49:56.522168+00:00",
+  "puttPuttZooDemo": {
+    "title": "Putt-Putt Saves the Zoo (Windows Demo)",
+    "listingUrl": "https://www.scummvm.org/demos/",
+    "downloadUrl": "https://downloads.scummvm.org/frs/demos/scumm/he/puttzoo-win-demo-us.zip",
+    "httpResponseDate": "Fri, 09 Oct 2026 01:48:40 GMT",
+    "archivePath": "work/native-games/puttzoo/puttzoo-win-demo-us.zip",
+    "bytes": 18172388,
+    "sha256": "391dc1c626c671ebeb944515d9513db2e24522dee2e08010ce41f46cfbb043cd",
+    "dataDirectory": "work/native-games/puttzoo/data",
+    "gameId": "scumm:puttzoo",
+    "edition": "HE 72 / Demo / Windows / English; upstream v2.9.0 HE0 hash match and installed Debian ARM64 ScummVM detection passed",
+    "inventory": [
+      {
+        "name": "ZOODEMO.EXE",
+        "bytes": 30720,
+        "sha256": "b601f21e760ee4bdc4decff26531bede1cd41f1322a1c01958a65a43d3835579",
+        "crc32": "f14d694c",
+        "extracted": false
+      },
+      {
+        "name": "ZOODEMO.HE0",
+        "bytes": 14337,
+        "sha256": "3bc0b7595b1454c41a669ce76bb746d9177ca63987bfaab8181e76f6dbd2a834",
+        "crc32": "73568f3f",
+        "extracted": true
+      },
+      {
+        "name": "ZOODEMO.HE1",
+        "bytes": 13326164,
+        "sha256": "ce5eb2d79c5d8bb709b36026ce4f4f2b3c7f82e2113d25866622ec42d6dbe89c",
+        "crc32": "5d8653fa",
+        "extracted": true
+      },
+      {
+        "name": "ZOODEMO.HE2",
+        "bytes": 7569249,
+        "sha256": "afac72b007030b3ff1ec5cf68bd163bf8211fd47ae5ed7a704892db96725d696",
+        "crc32": "74ff42d5",
+        "extracted": true
+      },
+      {
+        "name": "ZOODEMO.HE3",
+        "bytes": 36864,
+        "sha256": "217fbd64f78603cc76251a30888ca1661e761e8f02d45ca29bc98595566e2f9e",
+        "crc32": "6825ab53",
+        "extracted": true
+      },
+      {
+        "name": "ZOODEMO.HE4",
+        "bytes": 9683210,
+        "sha256": "4e2138267782868060e63b0651c3e1fb8b29f80bd2456bb5d1de0b4cb649c6ee",
+        "crc32": "eba099b8",
+        "extracted": true
+      },
+      {
+        "name": "ZOODEMO.HLP",
+        "bytes": 35217,
+        "sha256": "7f28f21f0a5d8dc6ded81833114bd19ea2396ee114f3e73513483f64a5c213c5",
+        "crc32": "fd4ef88d",
+        "extracted": false
+      },
+      {
+        "name": "ZOODEMO.W32",
+        "bytes": 293376,
+        "sha256": "3dc8aade7e6074f1b1c3c4aad3d374ab0bcee8e17ba775b47483e5da67eed70a",
+        "crc32": "ca0d4667",
+        "extracted": false
+      }
+    ],
+    "extraction": {
+      "limits": {
+        "archiveBytes": 67108864,
+        "entries": 32,
+        "expandedBytes": 67108864,
+        "fileBytes": 33554432,
+        "expansionRatio": 100
+      },
+      "policy": "Validated exact eight-entry flat inventory, no duplicate/traversal/absolute/backslash/drive paths, encrypted members, links or special files; stored/deflate only; read and CRC-checked every bounded member; extracted only ZOODEMO.HE0 through HE4 with read-only modes. Windows executable, W32 component and help file retained only inside the original ZIP and never executed."
+    },
+    "license": {
+      "status": "Proprietary Humongous demo data; redistribution permission not established",
+      "readmeOrLicenseFile": "No standalone README or license file among the eight archive entries. A Windows help file is present but was not executed or extracted.",
+      "distribution": "Private test input only. Do not place archive or game data in the source bundle or generic image. Official demo listing is evidence of acquisition source, not a grant of redistribution rights."
+    },
+    "verification": {
+      "archiveHashAndCRC": "passed",
+      "engineDetection": "passed: scumm:puttzoo — Putt-Putt Saves the Zoo (Demo/Windows/English) at transferred and installed data paths",
+      "interactivePlay": "passed for bounded Linux VM walkthrough: entrance and Jungle Dock rendered; pointer interaction changed scenes; car/dog animation and F5 menu response observed. This is not a full playthrough or physical Pi acceptance.",
+      "audioOutput": "audibility unverified: ALSA device reported RUNNING, but logs contain buffer underruns; no listening acceptance recorded",
+      "saveLoad": "not verified: S and L did not expose original save/load dialogs; F5 Save rejected menu saving and instructed use of the in-game interface; no game save created (only timestamps metadata present)",
+      "guestDataHashes": "passed: all five extracted HE SHA256/size records match installed files; excluded archive members absent",
+      "guestDataPermissions": "passed: installed root:root 0444; separate writable user config and saves",
+      "engineEvidence": [
+        "work/linux-vm/evidence/demo-games-engine-cli.txt",
+        "work/linux-vm/evidence/demo-games-install-and-offline.txt"
+      ],
+      "enginePackage": "Debian ARM64 scummvm 2.9.0+dfsg-1+b1, SDL 2.32.4",
+      "installedDataDirectory": "/opt/kidos-linux-test/game-data/puttzoo",
+      "rendererTrials": [
+        {
+          "mode": "surfacesdl",
+          "status": "failed before interactive acceptance",
+          "error": "SDL_BlitSurface failed: Parameter 'src' is invalid!",
+          "evidence": "work/linux-vm/evidence/demo-games-scummvm-surface-failure.txt",
+          "notes": "Menu Execute reached ScummVM but this renderer failed. The later explicit OpenGL trial passed the bounded GUI walkthrough."
+        },
+        {
+          "mode": "opengl",
+          "status": "passed bounded Linux VM rendering and interaction",
+          "arguments": [
+            "--no-fullscreen",
+            "--gfx-mode=opengl",
+            "--window-size=960,720"
+          ],
+          "evidence": "work/linux-vm/evidence/demo-games-scummvm-opengl.txt",
+          "screenshot": "work/verification/native-games-zoo.jpg",
+          "notes": "Native window rendered entrance and Jungle Dock with animation. Does not certify audio, save/load, complete demo compatibility or physical Pi graphics."
+        }
+      ],
+      "visualEvidence": [
+        {
+          "path": "work/verification/native-games-zoo.jpg",
+          "sha256": "161c6a41008801805437ab7673a04b3a3cb139373d6255d0d5d96a599b07017b",
+          "description": "Root CUA screenshot of the Zoo Jungle Dock scene in a native window above the kidOS desktop"
+        }
+      ],
+      "interactiveEvidence": [
+        "work/linux-vm/evidence/demo-games-scummvm-opengl.txt",
+        "work/linux-vm/evidence/demo-games-zoo-interaction.txt"
+      ],
+      "observationSource": "Root performed the interactive QEMU GUI walkthrough and reported entrance-to-Jungle-Dock navigation, animation, F5 response and S/L results; the Library agent reviewed the saved screenshot and CLI logs."
+    },
+    "references": [
+      "https://www.scummvm.org/compatibility/2.9.0/",
+      "https://docs.scummvm.org/en/v2.9.0/advanced_topics/command_line.html",
+      "https://docs.scummvm.org/en/v2.9.0/use_scummvm/save_load_games.html",
+      "https://raw.githubusercontent.com/scummvm/scummvm/v2.9.0/engines/scumm/scumm-md5.h",
+      "https://github.com/scummvm/scummvm/blob/v2.9.0/engines/scumm/saveload.cpp",
+      "https://store.steampowered.com/manual/294660",
+      "https://github.com/scummvm/scummvm/blob/v2.9.0/engines/scumm/input.cpp",
+      "https://docs.scummvm.org/en/v2.9.0/use_scummvm/keyboard_shortcuts.html"
+    ],
+    "retrievedAt": "2026-10-09T01:49:56.522168+00:00",
+    "supportEvidence": {
+      "upstreamVersion": "2.9.0",
+      "compatibilityRating": "Putt-Putt Saves the Zoo listed Excellent by upstream; that general support rating is separate from this manifest's bounded local demo checks.",
+      "detectionTable": "https://raw.githubusercontent.com/scummvm/scummvm/v2.9.0/engines/scumm/scumm-md5.h",
+      "he0MD5": "de4efb910210736813c9a1185384bace",
+      "he0Bytes": 14337,
+      "detectedMetadata": {
+        "gameId": "puttzoo",
+        "variant": "HE 72",
+        "extra": "Demo",
+        "language": "EN_ANY",
+        "platform": "Windows"
+      }
+    },
+    "saveLimitations": {
+      "source": "https://github.com/scummvm/scummvm/blob/v2.9.0/engines/scumm/saveload.cpp",
+      "sourceCopy": "work/native-games/puttzoo/scumm-saveload-v2.9.0.cpp",
+      "sourceSHA256": "af2be4f0785be0dd66ed44bd82bfd0d399a179f6d57c31f4a45a89d2cb862084",
+      "globalMenu": "Upstream 2.9.0 canSaveGameStateCurrently and canLoadGameStateCurrently return false for HE >=62 and require the original in-game save/load interface because of glitches.",
+      "demoSave": "During the local Linux VM walkthrough, S and L did not open original save/load dialogs. F5 Save said: This game does not support saving from the menu. Use in-game interface. No game save was created, so save/load acceptance remains incomplete; do not promise resumable demo progress.",
+      "autosave": "Generic ScummVM autosave documentation does not establish save support for this demo.",
+      "fullGameManual": "https://store.steampowered.com/manual/294660",
+      "originalControls": "Publisher-linked full-game manual pages 3–4 documents S for Save and L for Load. These controls were tested in this demo without a save/load dialog appearing; the full-game manual is not proof that the demo includes saving. F5 opened the ScummVM menu.",
+      "inputSource": "https://github.com/scummvm/scummvm/blob/v2.9.0/engines/scumm/input.cpp",
+      "inputSourceCopy": "work/native-games/puttzoo/scumm-input-v2.9.0.cpp",
+      "inputSourceSHA256": "0367746b0bb8884864def68c5018e60a3fed4a4231899123b19124f73462ee28"
+    },
+    "launch": {
+      "documentation": "https://docs.scummvm.org/en/v2.9.0/advanced_topics/command_line.html",
+      "detectArgumentTemplate": [
+        "--config=USER_CONFIG_FILE",
+        "--path=READ_ONLY_GAME_DIRECTORY",
+        "--detect"
+      ],
+      "argumentTemplate": [
+        "--no-fullscreen",
+        "--gfx-mode=opengl",
+        "--window-size=960,720",
+        "--config=USER_CONFIG_FILE",
+        "--savepath=WRITABLE_USER_SAVES_DIRECTORY",
+        "--path=READ_ONLY_GAME_DIRECTORY",
+        "scumm:puttzoo"
+      ],
+      "notes": "OpenGL arguments match the verified supervised Linux VM renderer; physical Pi rendering remains untested. Paths are placeholders. --path must precede --detect/--auto-detect. --window-size=W,H is OpenGL-only. Do not use --demo-mode for this game: upstream documents it only for Maniac Mansion/The 7th Guest."
+    }
+  },
+  "verificationUpdatedAt": "2026-10-09T02:17:09.382085+00:00"
+}

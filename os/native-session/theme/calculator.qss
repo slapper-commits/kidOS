@@ -1,0 +1,126 @@
+/* kidOS Calculator: original styling for the upstream KCalc Qt 6 interface.
+   KCalc paints its own key labels; calculator-kcalcrc supplies those colors.
+   Numerical behavior, shortcuts, history and scientific modes stay native. */
+QWidget {
+  color: #202e2d;
+  font-family: "DejaVu Sans";
+  font-size: 11pt;
+  selection-background-color: #233c65;
+  selection-color: #fffef5;
+}
+QMainWindow, QDialog, QMessageBox, QWidget#KCalculator {
+  background: #d8d8cd;
+}
+QMenuBar {
+  background: #f3edcf;
+  border-bottom: 1px solid #77877e;
+  padding: 3px;
+  spacing: 2px;
+}
+QMenuBar::item { background: transparent; padding: 5px 9px; }
+QMenuBar::item:selected, QMenuBar::item:pressed {
+  color: #fffef5;
+  background: #233c65;
+}
+QMenu { background: #fffef5; border: 2px solid #77877e; padding: 4px; }
+QMenu::item { padding: 7px 25px; }
+QMenu::item:selected { color: #fffef5; background: #233c65; }
+QMenu::item:disabled { color: #77877e; }
+QMenu::separator { height: 1px; background: #77877e; margin: 4px 8px; }
+QMenu::indicator:checked { image: url(paint/check.svg); }
+QMenu::indicator:checked:selected { image: url(paint/check-light.svg); }
+QMenu::right-arrow { image: url(paint/right.svg); width: 9px; height: 9px; }
+QMenu::right-arrow:selected { image: url(paint/right-light.svg); }
+QToolBar { background: #f3edcf; border-bottom: 1px solid #77877e; padding: 4px; spacing: 4px; }
+QToolButton {
+  background: #f3edcf;
+  border: 1px solid transparent;
+  padding: 5px;
+}
+QToolButton:hover, QToolButton:checked { background: #a5c8d8; border-color: #77877e; }
+QToolButton:pressed { background: #d8d8cd; border-color: #233c65; }
+QStatusBar { background: #f3edcf; border-top: 1px solid #77877e; }
+QStatusBar::item { border: none; }
+QStatusBar QLabel { padding: 3px 6px; }
+
+/* Keep the display's native layout and right alignment. */
+KCalcDisplayFrame#calc_display_frame {
+  background: #fffef5;
+  border: 2px solid #77877e;
+  border-right-color: #ffffef;
+  border-bottom-color: #ffffef;
+  border-radius: 0;
+  padding: 6px;
+}
+KCalcDisplayFrame#calc_display_frame QLabel {
+  color: #23776f;
+  background: #fffef5;
+  font-size: 10pt;
+}
+KCalcInputDisplay#input_display, KCalcDisplay#calc_display {
+  background: #fffef5;
+  color: #233c65;
+  font-family: "DejaVu Sans";
+}
+KCalcInputDisplay#input_display { font-size: 13pt; padding: 5px 2px; }
+KCalcDisplay#calc_display { font-size: 26pt; font-weight: bold; }
+QFrame#line { color: #d8d8cd; background: #d8d8cd; max-height: 1px; }
+
+QPushButton {
+  background: #f3edcf;
+  border: 2px solid #77877e;
+  border-top-color: #ffffef;
+  border-left-color: #ffffef;
+  border-radius: 0;
+  padding: 6px 10px;
+  min-height: 20px;
+}
+QPushButton:hover { border-color: #23776f; }
+QPushButton:focus { border-color: #233c65; }
+QPushButton:pressed, QPushButton:checked {
+  border-top-color: #233c65;
+  border-left-color: #233c65;
+  border-bottom-color: #ffffef;
+  border-right-color: #ffffef;
+}
+QPushButton:disabled { color: #77877e; background: #d8d8cd; }
+KCalcButton { min-height: 31px; min-width: 35px; font-size: 15pt; }
+KCalcButton#pbEqual { border-color: #233c65; border-width: 3px; }
+
+/* The same surfaces apply to native preferences and optional history. */
+QLineEdit, QSpinBox, QDoubleSpinBox, QComboBox, QTextEdit, QPlainTextEdit,
+QListView, QTreeView, QTableView {
+  background: #fffef5;
+  color: #202e2d;
+  border: 2px solid #77877e;
+  border-right-color: #ffffef;
+  border-bottom-color: #ffffef;
+  padding: 4px;
+}
+QLineEdit:focus, QSpinBox:focus, QDoubleSpinBox:focus, QComboBox:focus,
+QTextEdit:focus, QPlainTextEdit:focus { border-color: #23776f; }
+QComboBox::drop-down { background: #f3edcf; border-left: 1px solid #77877e; width: 24px; }
+QComboBox::down-arrow { image: url(paint/down.svg); width: 9px; height: 9px; }
+QGroupBox { border: 1px solid #77877e; margin-top: 12px; padding: 8px; }
+QGroupBox::title { subcontrol-origin: margin; subcontrol-position: top left; padding: 0 5px; }
+QTabWidget::pane { border: 1px solid #77877e; background: #d8d8cd; }
+QTabBar::tab { background: #d8d8cd; border: 1px solid #77877e; padding: 7px 12px; }
+QTabBar::tab:selected { background: #f3edcf; border-bottom-color: #f3edcf; }
+QTabBar::tab:hover { background: #a5c8d8; }
+QCheckBox, QRadioButton { spacing: 7px; padding: 3px; }
+QCheckBox::indicator, QRadioButton::indicator {
+  width: 15px;
+  height: 15px;
+  background: #fffef5;
+  border: 1px solid #77877e;
+}
+QCheckBox::indicator:checked { image: url(paint/check.svg); }
+QRadioButton::indicator { border-radius: 8px; }
+QRadioButton::indicator:checked { image: url(paint/radio.svg); }
+QScrollBar:vertical { background: #d8d8cd; width: 16px; margin: 0; }
+QScrollBar:horizontal { background: #d8d8cd; height: 16px; margin: 0; }
+QScrollBar::handle { background: #f3edcf; border: 1px solid #77877e; min-height: 22px; min-width: 22px; }
+QScrollBar::handle:hover { background: #a5c8d8; }
+QScrollBar::add-line, QScrollBar::sub-line { width: 0; height: 0; }
+QScrollBar::add-page, QScrollBar::sub-page { background: transparent; }
+QToolTip { color: #202e2d; background: #fffef5; border: 1px solid #233c65; padding: 5px; }
