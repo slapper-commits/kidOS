@@ -21,6 +21,10 @@ export function validatePuzzleCatalog(value) {
 }
 export const PUZZLE_BINARIES = Object.freeze(validatePuzzleCatalog(puzzleCatalog));
 export const PUZZLE_SUPPORT_FILES = Object.freeze(['/usr/lib/python3/dist-packages/gi/__init__.py', '/usr/lib/aarch64-linux-gnu/girepository-1.0/Gtk-3.0.typelib']);
+export function puzzleSupportFiles(arch = process.arch) {
+  if (!['arm64', 'x64'].includes(arch)) throw new Error('Unsupported native puzzle architecture.');
+  return [PUZZLE_SUPPORT_FILES[0], `/usr/lib/${arch === 'x64' ? 'x86_64' : 'aarch64'}-linux-gnu/girepository-1.0/Gtk-3.0.typelib`];
+}
 export function nativePaths(user) {
   validateDesktopUser(user);
   const base = `${user.homedir}/.local/share/kidos-native`;
@@ -40,7 +44,7 @@ export function piCatalog(user) {
     solitaire: { name: 'Solitaire', binary: '/usr/games/kpat', data: ['/usr/share/applications/org.kde.kpat.desktop'], config: p.config, cwd: p.base },
     minesweeper: { name: 'Minesweeper', binary: '/usr/games/kmines', data: ['/usr/share/applications/org.kde.kmines.desktop'], config: p.config, cwd: p.base },
     pinball: { name: 'Pinball', binary: '/usr/games/pinball', data: ['/usr/share/games/pinball/tux/pinball.pbl', '/usr/share/games/pinball/professor/pinball.pbl'], config: p.config, cwd: p.base },
-    puzzlebox: { name: 'Puzzle Box', binary: '/usr/bin/python3.13', data: PUZZLE_SUPPORT_FILES, extraExecutables: PUZZLE_BINARIES, config: p.config, cwd: folder },
+    puzzlebox: { name: 'Puzzle Box', binary: '/usr/bin/python3.13', data: puzzleSupportFiles(), extraExecutables: PUZZLE_BINARIES, config: p.config, cwd: folder },
   };
 }
 export function piCommandFor(id, user) {
@@ -118,14 +122,14 @@ export async function checkNativeFolders(user, id, inspect = lstat) {
   }
 }
 async function main(args) {
-  if (args.length !== 1 || args[0] !== '--setup-user') throw new Error('Use --setup-user as the enrolled ordinary Pi desktop user.');
-  const { checkEnrolledPiUser } = await import('./registration.mjs');
+  if (args.length !== 1 || args[0] !== '--setup-user') throw new Error('Use --setup-user as the enrolled ordinary Pi or PC desktop user.');
+  const { checkEnrolledDesktopUser } = await import('./registration.mjs');
   const user = userInfo();
-  await checkEnrolledPiUser(user);
+  const session = await checkEnrolledDesktopUser(user);
   process.umask(0o077);
   const folders = await prepareNativeFiles(user.homedir, user.uid);
   const { prepareNativeTheme } = await import('./theme.mjs');
-  const theme = await prepareNativeTheme(user.homedir, user.uid);
+  const theme = await prepareNativeTheme(user.homedir, user.uid, { targetKind: session.targetKind });
   console.log(JSON.stringify({ ...folders, theme }));
 }
 if (process.argv[1] && import.meta.url === pathToFileURL(await realpath(process.argv[1])).href) main(process.argv.slice(2)).catch(error => { console.error(error.message); process.exitCode = 1; });

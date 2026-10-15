@@ -3,7 +3,7 @@ import assert from 'node:assert/strict';
 import { readFile } from 'node:fs/promises';
 import { execFileSync } from 'node:child_process';
 import { fileURLToPath } from 'node:url';
-import { validatePuzzleCatalog, PUZZLE_BINARIES, piEnvironment } from '../../os/native-session/native-launch.mjs';
+import { validatePuzzleCatalog, piCatalog, PUZZLE_BINARIES, piEnvironment } from '../../os/native-session/native-launch.mjs';
 import { listApps, launch } from '../../os/native-session/host.mjs';
 
 const catalogURL = new URL('../../os/native-session/puzzlebox-catalog.json', import.meta.url);
@@ -125,7 +125,7 @@ test('native Puzzle Box availability and Pi launch fail closed when an installed
   const user = { username: 'kid', uid: 1000, gid: 1000, homedir: '/home/kid' };
   const session = { targetKind: 'raspberry-pi', user };
   const inspect = async () => ({ isDirectory: () => true, isSymbolicLink: () => false, uid: 1000, mode: 0o700 });
-  for (const missing of ['/usr/games/sgt-untangle', '/usr/lib/aarch64-linux-gnu/girepository-1.0/Gtk-3.0.typelib']) {
+  for (const missing of ['/usr/games/sgt-untangle', piCatalog(user).puzzlebox.data[1]]) {
     const checkFile = async path => { if (path === missing) throw new Error('missing package file'); };
     const apps = await listApps({ session, inspect, checkFile });
     assert.equal(apps.find(app => app.id === 'puzzlebox').reason, 'not-installed');

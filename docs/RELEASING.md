@@ -1,6 +1,6 @@
 # Publishing a developer preview
 
-This procedure publishes source and a portable installation bundle, not a bootable OS image or a signed device update. No family data, VM disks, runtime binaries or proprietary game content belong in either download.
+This procedure publishes source and a portable installation bundle. The separate experimental [USB image](../os/live-usb/README.md) has its own build, source-distribution and runtime acceptance requirements. Neither is a signed device update. No family data, VM disks, runtime binaries or proprietary game content belong in the source-only downloads.
 
 ## Source review
 
@@ -13,12 +13,12 @@ Before the first commit, inspect all public files and the staged diff, use a pub
 ```sh
 npm run check:public
 npm test
-npm run release:verify -- --version 0.0.1-pilot.17 --output-dir work/public-release
+npm run release:verify -- --version 0.0.1-pilot.20 --output-dir work/public-release
 ```
 
-Use a fresh output directory. The verifier builds the portable archive twice, compares bytes, extracts it into a temporary directory, verifies its manifest and rehearses staging without touching a live system. The archive and SHA-256 sidecar are the only release assets. Full source, build tooling and tests remain available from the matching Git tag.
+Use a fresh output directory. The verifier builds the portable archive twice, compares bytes, extracts it into a temporary directory, verifies its manifest and rehearses staging without touching a live system. The archive and SHA-256 sidecar are the portable source assets; a release may also include separately verified USB components as described below. Full source, build tooling and tests remain available from the matching Git tag.
 
-The two manifests serve different purposes: the public repository includes tests and VM tooling; the portable archive includes only the Pi runtime and documentation. Neither includes `work/`, `.data/`, credentials or game-demo assets. Required licenses are included in both.
+The two manifests serve different purposes: the public repository includes tests and VM tooling; the portable archive includes the shared runtime, guarded Pi/PC setup and documentation. Neither includes `work/`, `.data/`, credentials or game-demo assets. Required licenses are included in both. Release verification now also stages the PC CLI and native source graph through the extracted installed-release symlink. This is filesystem verification, not a live x64 Linux installation.
 
 ## Release workflow
 
@@ -29,6 +29,27 @@ The two manifests serve different purposes: the public repository includes tests
 5. Compare downloaded draft assets with local build hashes for that commit, review notes, then publish the prerelease. Keep it marked prerelease and do not designate it as a stable release.
 
 People can opt into GitHub release notifications through Watch → Custom → Releases and manually choose a version. The in-device updater is a separate future milestone described in [UPDATES.md](UPDATES.md).
+
+## USB assets in a preview release
+
+Keep the USB's frozen runtime identity separate from the current portable bundle.
+Do not remaster or relabel an already verified ISO during publication. Include
+its matching package sources, frozen recipe, any transformation source and all
+required notices; the full checkout at the newer release tag is not a substitute.
+
+GitHub release files must each be under 2 GiB. For pilot.20, the verified ISO is
+split into two ordered parts and its matching Debian source archive into five
+parts, with a separate source-supplement tar. The [USB guide](USB-TRY.md) records
+exact filenames, reconstruction instructions and complete-file hashes. Prepare
+parts as ordinary files, independently rehash each part and their concatenation,
+and retain a public manifest of sizes/order/hashes. Keep private VM evidence,
+credentials and local host paths out of uploaded assets.
+
+Upload the complete USB/source set, public guide, verification notes and checksum
+list to the draft. Verify GitHub's recorded size and SHA-256 for every uploaded
+asset against the local manifest, and download the portable source assets to
+compare bytes. Publish only after every required component is present; preserve
+the prerelease designation and existing release bytes.
 
 ## Before offering a family-ready image
 

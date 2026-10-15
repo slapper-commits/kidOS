@@ -23,6 +23,13 @@ try {
   execFileSync('tar', ['-xf', archive, '-C', extracted]);
   assert.deepEqual((await verifyRelease(extracted)).manifest, release.manifest);
   await stageRelease(extracted, join(temp, 'staging'));
+  // Exercise the PC CLI from the extracted artifact, including native imports
+  // through the selected-release symlink. Never invoke a live install in CI.
+  const pcStage = join(temp, 'pc-staging');
+  const hardware = JSON.parse(execFileSync(process.execPath, [join(extracted, 'os/linux-pc/install.mjs'), '--check-hardware'], { encoding: 'utf8' }));
+  assert.equal(hardware.hardwareAccepted, false, 'A code-only hardware report must not certify this build host.');
+  execFileSync(process.execPath, [join(extracted, 'os/linux-pc/install.mjs'), '--target-root', pcStage]);
+  execFileSync(process.execPath, [join(pcStage, 'opt/kidos/current/os/linux-pc/native.mjs'), '--stage', join(temp, 'pc-native')]);
   const name = `kidos-${version}.tar`;
   await mkdir(output, { recursive: true });
   await writeFile(join(output, name), bytes, { flag: 'wx' });

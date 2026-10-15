@@ -1,6 +1,6 @@
 # Asset and dependency provenance
 
-The Node service uses standard-library APIs. The browser now includes pinned local PDF.js and zip.js assets for PDF and EPUB reading; no package installation or CDN request is needed at runtime. Node.js and the browser are supplied by the local machine or installed separately into the disposable Linux VM; their binaries are not bundled into the source archive. Their distribution licenses must be included when a future device image bundles them.
+The Node service uses standard-library APIs. The browser now includes pinned local PDF.js and zip.js assets for PDF and EPUB reading; no package installation or CDN request is needed at runtime. Node.js and the browser are supplied by the local machine for a browser preview and installed separately for developer Linux targets. The amd64 USB image bundles its pinned runtime and Debian packages with their installed license notices; matching Debian sources and the frozen build recipe accompany that image. The portable source-only release does not bundle those Linux binaries.
 
 | Material | Origin | Distribution note |
 | --- | --- | --- |
@@ -33,6 +33,18 @@ Required notices remain at:
 - [zip.js BSD-3-Clause license](../apps/desktop/library-vendor/zipjs/LICENSE)
 
 The standard-font files are part of PDF rendering, not a replacement for the desktop system-font stack. Preserve their specific notices and include their distribution terms in the image/license review; the PDF.js project license does not replace them.
+
+The USB distribution also retains matching editable sources for PDF.js's
+Liberation Sans **1.07.4** fonts. The upstream archive is preserved from the
+[official Debian mirror](https://deb.debian.org/debian/pool/main/f/fonts-liberation/fonts-liberation_1.07.4.orig.tar.gz):
+2,937,949 bytes, SHA-256
+`ad98b7498dc2992f7f0868f79b65ce4a720a3acdb63ab3f1f1cb6881117a5406`.
+It includes the SFD sources, FontForge build scripts and original license texts.
+The USB delivery’s `SOURCES/font-source/` directory records the version/name and notice
+comparisons, acquisition metadata and checksums. Keep that supplement available
+with the image and its Debian sources/build recipe; newer Liberation packages
+are not a substitute for this version. No font rebuild or byte-identical output
+is claimed. The supplement does not change the frozen ISO.
 
 Original kidOS code, artwork and documentation use the root MIT license. Vendored dependencies retain the separate licenses listed here; the MIT license does not replace them. Before distributing an image, audit every bundled package, include the required notices and source offers where applicable, and record permissions for every piece of educational or media content. This provenance record is not a completed distribution license review.
 

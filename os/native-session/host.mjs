@@ -5,7 +5,7 @@ import { resolve } from 'node:path';
 import { fileURLToPath } from 'node:url';
 import { MAX_BYTES, APP_IDS, EXTENSION_ORIGIN, validNativeRequest, success, failure } from './extension/protocol.mjs';
 import { protectedFile, checkSession } from './registration.mjs';
-import { VM_SESSION } from './target.mjs';
+import { VM_SESSION, isNativeDesktop } from './target.mjs';
 import { nativePaths, piCatalog, piCommandFor, piEnvironment, checkNativeFolders, PUZZLE_BINARIES, PUZZLE_SUPPORT_FILES } from './native-launch.mjs';
 
 const BASE = '/home/kidos-test/.local/share/kidos-native-demos';
@@ -27,7 +27,7 @@ const catalog = Object.freeze({
   puzzlebox: { name: 'Puzzle Box', binary: '/usr/bin/python3.13', group: 'files', data: PUZZLE_SUPPORT_FILES, extraExecutables: PUZZLE_BINARIES, config: `${FILES_BASE}/config` },
 });
 export function commandFor(id, session = VM_SESSION) {
-  if (session.targetKind === 'raspberry-pi') return piCommandFor(id, session.user);
+  if (isNativeDesktop(session)) return piCommandFor(id, session.user);
   if (session.targetKind !== 'disposable-linux-vm') throw new Error('Invalid native target.');
   if (!Object.hasOwn(catalog, id)) throw new Error('Invalid native application.');
   return { executable: WRAPPERS[catalog[id].group], args: [id] };
@@ -38,7 +38,7 @@ export function activationMatches(id) {
   throw new Error('Only approved games have fixed activation matches.');
 }
 export async function listApps({ checkFile = protectedFile, inspect = lstat, uid = 1000, session = VM_SESSION } = {}) {
-  const isPi = session.targetKind === 'raspberry-pi';
+  const isPi = isNativeDesktop(session);
   if (!isPi && session.targetKind !== 'disposable-linux-vm') throw new Error('Invalid native target.');
   const selected = isPi ? piCatalog(session.user) : catalog;
   return Promise.all(APP_IDS.map(async id => {
@@ -105,7 +105,7 @@ export function readFrame(input, timeoutMs = 1500) {
   });
 }
 export async function launch(id, { spawnProcess = spawn, checkLock = execFileSync, checkFile = protectedFile, inspect = lstat, env = process.env, session = VM_SESSION } = {}) {
-  const command = commandFor(id, session), isPi = session.targetKind === 'raspberry-pi';
+  const command = commandFor(id, session), isPi = isNativeDesktop(session);
   const cleanEnv = isPi ? piEnvironment(session.user, env, id) : { HOME: '/home/kidos-test', USER: 'kidos-test', LOGNAME: 'kidos-test', PATH: '/usr/bin:/bin', LANG: 'C.UTF-8', XDG_RUNTIME_DIR: '/run/user/1000', WAYLAND_DISPLAY: env.WAYLAND_DISPLAY, DBUS_SESSION_BUS_ADDRESS: env.DBUS_SESSION_BUS_ADDRESS };
   if (isPi) {
     const app = piCatalog(session.user)[id];

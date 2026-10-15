@@ -1,6 +1,10 @@
 # Raspberry Pi developer pilot
 
-For the selected **Pi 5 / 8 GB**, follow the [Sunday installation checklist](SUNDAY.md). It adds Writer, Calculator, Paint, Files and OpenTTD to the verified source-install path below. The deadline is 11 October 2026; physical acceptance is still pending.
+The selected target is **Pi 5 / 8 GB**; physical acceptance is still pending.
+Use the current source-install steps below. The [original installation checklist](SUNDAY.md)
+records the earlier October 11 plan and its pending hardware workflows; its old
+candidate version is historical. See [all installation options](../../docs/INSTALL.md)
+for the separate amd64 USB preview and existing-OS browser preview.
 
 kidOS now has a source-only release archive, an installer that can be rehearsed in an empty directory, a systemd service, and an optional Chromium desktop launcher. This is a concrete route to using the current desktop on a dedicated Pi before the remaining product features are finished.
 
@@ -61,9 +65,9 @@ The final command must print `v24.21.0`. Retain the verified archive with your i
 From the repository root, after tests pass:
 
 ```sh
-node scripts/build-pilot-release.mjs --version 0.0.1-pilot.17 --output-dir work/releases/preview
+node scripts/build-pilot-release.mjs --version 0.0.1-pilot.20 --output-dir work/releases/preview
 mkdir -p work/pilot-extracted
-tar -xf work/releases/preview/kidos-0.0.1-pilot.17.tar -C work/pilot-extracted
+tar -xf work/releases/preview/kidos-0.0.1-pilot.20.tar -C work/pilot-extracted
 node work/pilot-extracted/os/raspberry-pi/install.mjs --target-root work/pi-stage
 ```
 
@@ -75,14 +79,17 @@ This reproduces the **app archive** for identical source inputs and a chosen ver
 
 ## Install on the dedicated Pi
 
-Copy the tar and checksum together to the Pi. In that directory:
+Get the portable `kidos-0.0.1-pilot.20.tar` and its checksum from the
+[release page](https://github.com/slapper-commits/kidOS/releases/tag/v0.0.1-pilot.20),
+or use your verified build above. Copy both together to the Pi. GitHub's automatic
+source archives do not include the required portable `RELEASE.json`. In that directory:
 
 ```sh
 (
   set -eu
-  sha256sum -c kidos-0.0.1-pilot.17.tar.sha256
+  sha256sum -c kidos-0.0.1-pilot.20.tar.sha256
   mkdir kidos-pilot
-  tar -xf kidos-0.0.1-pilot.17.tar -C kidos-pilot
+  tar -xf kidos-0.0.1-pilot.20.tar -C kidos-pilot
   cd kidos-pilot
   /opt/kidos-node/v24.21.0/bin/node os/raspberry-pi/install.mjs --target-root ../kidos-stage
   sudo /opt/kidos-node/v24.21.0/bin/node os/raspberry-pi/install.mjs --install-on-this-pi
@@ -174,4 +181,9 @@ On the dedicated Pi, record the model, RAM, power supply, storage, exact OS imag
 4. Offline use, input devices, storage and representative workload performance.
 5. Service failures and backup restoration with designated test data. Destructive power-loss, flashing or reset drills require a separately designated disposable target.
 
-All five hardware acceptance items remain open. A later image recipe must pin full inputs, enroll unique household/device identities and include OS/browser/runtime licenses. kidOS's distribution license has not yet been selected; this source archive is for the supervised personal pilot. Check the repository's giftable requirements before distributing devices to another family.
+All five hardware acceptance items remain open. A Pi image would need pinned full
+inputs, unique household/device identities and OS/browser/runtime licenses; no
+Pi image is supplied. Original kidOS code, artwork and documentation use the
+[MIT license](../../LICENSE); third-party components retain their own notices.
+This source archive remains a supervised developer pilot. See the repository's
+[giftable-device requirements](../../docs/GIFTABLE.md) for the separate readiness work.

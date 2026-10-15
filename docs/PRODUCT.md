@@ -16,13 +16,32 @@
 - Local imports and compatible playback formats; no subscription streaming or DRM integrations.
 - Offline child use with parent-controlled imports and updates.
 - JavaScript web apps for Day 0. Python services require a real containment boundary before child code can run; native graphical application packaging remains a decision.
-- One household and one supported device model before broader distribution.
+- One household per installation; the expanded hardware rollout approved on 2026-10-14 follows the separate qualification gates below.
 - No cloud AI dependency.
 
 ## Open decisions
 Optional reading/typing assistance; final media format list and library size; approved external access; Pi storage and peripherals; first TV input device; household profiles and languages. The first native app set is Write, Calculator, Paint, Files and OpenTTD. Write is the kidOS name for its LibreOffice Writer-based word processor; the stable internal application ID remains `writer`.
 
 These decisions do not block the Day 0 web-project workflow. Resolve before selecting content, configuring containment, or promising hardware performance.
+
+## Wider hardware direction — 2026-10-14
+
+Sean requested installation on Intel MacBooks from at least 2012 and basic PCs
+so friends can use kidOS, and selected both dedicated-computer and existing-OS
+editions, starting with dedicated computers. Add a Debian 13 amd64 track alongside
+the Pi, then a macOS/Windows app edition. Reuse mature Linux USB/installation and
+hardware support. Preserve local-first storage and the familiar desktop. A
+2012-era Intel MacBook is a qualification target, not a promise that every newer
+Mac is supported. Hardware checks, a graphical kidOS installer/live USB and
+friend-followable onboarding remain required; see [PC rollout](PC-INSTALL.md).
+
+Sean further requested a USB edition that friends can try without wiping their
+computers, then optionally install. Default to a temporary live session, with
+clear save/export limits and no automatic internal-disk mounting, swap, resume
+or persistence. Keep installation outside browser/child-app authority, with
+explicit drive selection, proposed changes and a final confirmation. Use the
+clean read-only system source when installing, not trial data or identities.
+Physical flashing/install acceptance still requires designated disposable media.
 
 ## Day 0 boundary
 

@@ -1,5 +1,219 @@
 # Build milestones
 
+## Experimental USB delivery — 2026-10-15
+
+The corrected 3,392,798,720-byte ISO is prepared locally with its guide, checksums,
+matching Debian package sources, frozen ea56 recipe, boot-policy and font sources.
+It has not been uploaded to GitHub Releases. Image SHA-256:
+`dce7199203fdb3b350c9daa358427992ac37468f17f1ebff99e57d01c4ea4b1b`.
+
+Actual offline QEMU checks passed with SandyBridge-v2, two CPUs and 4 GiB RAM:
+corrected BIOS diskless trial; corrected UEFI Try/Cancel with full 32 GiB final
+byte preservation; deliberate Calamares installation to that synthetic drive;
+and two installed UEFI boots with the live medium absent. Both normal password
+logins used default Plasma (Wayland), with a fresh installed identity that stayed
+stable, matching source/enrollment, locked root/service accounts and clean initial
+home/projects/Mailbox. The first administration check required a password.
+
+On boot one, kidOS Write opened on one click, and a document was saved, closed
+and reopened. On boot two its exact bytes and original sentence persisted.
+Two kidOS Write-button requests timed out; Dolphin Documents and the default
+LibreOffice association reopened it successfully. That fallback uses the ordinary
+LibreOffice profile. The first kidOS page also required a normal Ctrl+R. These
+limits remain in the guide; neither page nor native-launch reliability is certified.
+All three installation phases ended in normal guest shutdown and passing stopped
+image checks. All owned source/acceptance VMs and builder transports are stopped.
+
+Final second-boot checkpoint:
+`62dd6193a06fbc2dc667a31930cdcbbc680e0e24077d8a37a4ee524f846b5c4c`.
+The reconciled software acceptance record is
+`work/usb-builder/evidence/ea56-usb-software-acceptance.json`, SHA-256
+`57799e9ee82f99588122cd403268992b8bc7574dff27c97a892b418a306163dd`.
+Independent review checked the phase/exit/screenshot/source associations.
+
+This is an experimental supervised preview. Physical MacBook/PC compatibility,
+Secure Boot, Wi-Fi, sound, input, suspend and real USB copy/eject remain unqualified.
+The friends-following-the-guide pilot, whole-device backup/recovery, parent
+controls, child-code containment and giftability remain separate pending gates.
+The first practical target is an Intel MacBook without T2 (2012–2017) or an x64
+Intel/AMD PC; no model is certified by the emulated tests.
+
+## Internal-drive discovery correction — 2026-10-15
+
+The first attached-drive test of the ea56 base image caught live-boot mounting
+and unmounting the synthetic internal ext4 partition while searching for its
+USB filesystem. No real drive was attached. The exact Debian live-boot discovery
+code uses `ro,noatime`, and ext4 can replay a journal even on a read-only mount.
+The earlier clean-image/static tests did not cover that behavior. The ea56 base
+ISO is superseded for distribution and must not be offered for real-computer
+trials.
+
+The recipe now adds `live-media=removable-usb`, the existing fail-closed
+live-boot branch which accepts USB devices reported removable and does not
+fall back to scanning internal drives. A label/device path alone would fall
+back and is insufficient. Fixed-reporting USB sticks/SSDs are outside this
+boot path; other removable storage should be disconnected during startup.
+The audit now requires this setting on every live entry and rejects conflicting
+device/ISO-discovery aliases or duplicate boot/GPT/swap assignments.
+All 346 checkout tests pass after the change, including 16 focused image/audit
+tests. Evidence: `work/verification/usb-media-scope-full-tests.txt` and
+`usb-media-scope-tests.txt`.
+
+A corrected boot-configuration-only derivative is now built: 3,392,798,720 bytes,
+SHA-256 `dce7199203fdb3b350c9daa358427992ac37468f17f1ebff99e57d01c4ea4b1b`.
+The transformation removes stock `findiso` overrides and separate Debian
+installer menu references. All 782 ordinary payload paths were compared: three
+configurations, two checksum tables and the generated ISOLINUX boot-info table
+changed; all other payload bytes, including SquashFS/kernel/initrd/EFI/offline
+packages, match the base. The runtime source remains exactly ea56, with the
+boot-policy source and its own artifact identity retained separately. Corrected
+BIOS and UEFI boots now reach kidOS after one normal browser reload. In the UEFI
+attached-drive trial, the internal test partition remained unmounted and swap
+was empty. Try, a RAM file creation, and actual Calamares Summary → Cancel ended
+in clean shutdown and a passing full logical 32 GiB comparison. The immutable
+baseline and target hashes were unchanged. The combined preservation record is
+`7884f851765c41df6a2f2dc3b2cada1d150f7ad1e19e0e7fa1965d20fa7025ac`.
+Offline installation and two installed boots subsequently passed, as recorded
+in the current delivery milestone above. These are emulated software observations,
+not physical hardware qualification.
+Sampled counters retained in private historical evidence are not device-level
+write-absence proof: the installation later grew the target while the same
+named-node counters remained zero. Preservation rests on the completed full-drive
+comparison and unchanged hashes, not those counter samples.
+
+The future generator now applies this same reviewed policy in a binary hook
+after menu generation and before live-build checksums. Its two build-only helper
+hashes are recorded in BUILD.json, outside the portable 337-file runtime. Unknown
+menu templates stop the build. All 346 macOS tests pass after this wiring;
+`work/verification/usb-final-macos-loopback-tests.txt` records the loopback-enabled
+run. Public-source verification covers 413 reviewed files. A complete future
+image rebuild is not claimed by the fixture tests.
+
+The final delivery staging includes the matching public-safe frozen ea56 recipe,
+the common Debian package-source tar (all 4,176 artifacts checked against the
+authenticated 1,301-version union), font sources and the boot-policy supplement.
+That package-source archive matches the unchanged payload even though it was
+produced by the preceding build; its older kidOS live-configuration tar is not
+substituted. The new normal build/source-packaging stage also completed with
+exit 0. Its newly generated live-configuration archive was preserved privately;
+it has not replaced the separately inspected recipe in the delivery folder.
+The [Debian live-boot manual](https://manpages.debian.org/trixie/live-boot-doc/live-boot.7.en.html)
+and [kernel ext4 documentation](https://docs.kernel.org/6.12/admin-guide/ext4.html)
+explain the relevant discovery and journal behavior.
+
+## Historical base-image checkpoint — 2026-10-15
+
+This historical checkpoint describes the superseded base image, not the corrected
+USB for distribution. Its pending items record that earlier point in time; the
+correction and delivery records above contain the current results.
+
+The development ISO `0.0.1-pilot.19-ea56e10ebac7` was built and copied locally:
+3,392,471,040 bytes, SHA-256
+`deaf63fc99d1494794530b205dfbabb9e6ef5f06494ae1e9cfc4c39b588fcafc`.
+Its frozen portable source digest is
+`ea56e10ebac7b1e9b0ac38ec6d5c444134140506c97a5ae7224a2d0eb77e9969`.
+Later checkout/documentation changes are separate from that frozen image.
+All 11 static image checks passed, including clean identities/data, exact source,
+bootstrap/installer settings and the then-required BIOS/UEFI trial arguments.
+The subsequent drive test above exposed the discovery gap in those arguments.
+The exact source
+passed 341 Linux x64 tests, with two expected platform skips and no failures.
+
+Fresh isolated BIOS and UEFI boots reach Plasma without manual session repairs.
+UEFI verified Wayland, fresh live enrollment, active kidOS services and local
+HTTP 200. Both firmware trials required a normal browser reload to render the
+first kidOS window. Both then completed offline Write create/save/close/relaunch/
+reopen with the original sentence visibly intact, using normal UI. Native
+launches also needed an extra attempt after a timeout. Automatic first launch
+and first-request native reliability remain unverified; the observed failures
+are retained rather than treated as passing. Bounded journal/kernel inspection
+did not establish a renderer crash, OOM or CPU-instruction cause. Synthetic-drive
+Try/Cancel preservation and Calamares install/reboot remain pending. No physical
+MacBook/PC, USB stick or computer disk has been changed or qualified.
+
+Signed metadata/source closure covers 1,301 source/version pairs and 4,176 source
+artifacts. Retained source archives from the prior build were verified and copied;
+the new build was held before its source stage at that checkpoint. It has since
+resumed normally. The correction record above describes current source delivery
+and the distinction between package sources and generated-ISO byte reproduction.
+Evidence remains in ignored `work/usb-builder/`, particularly `CURRENT-EA56.json`,
+`evidence/ea56-static-audit-output.json`,
+`evidence/final-linux-full-tests-result.json`, and
+`diskless-ea56-uefi/browser-after-reload-01.png`. The subsequent
+`evidence/ea56-diskless-acceptance.json` binds the actual BIOS/UEFI observations
+and explicitly keeps both first-launch reliability flags false.
+
+The image is a local development artifact, not yet a friend-ready download.
+The [USB acceptance sequence](../os/live-usb/README.md) remains required.
+After reconciling the reviewed startup/auditor changes into the checkout,
+all 346 macOS tests passed with two workers and loopback fixtures enabled;
+`work/verification/usb-reconciled-macos-tests.txt` records that result. This
+checkout check does not add image or physical-hardware acceptance.
+
+## Try/install USB — 2026-10-14
+
+Sean requested a USB edition for friends to try kidOS without wiping a computer,
+then optionally install. The [live USB recipe](../os/live-usb/README.md) now
+prepares a Debian 13 amd64 BIOS/UEFI hybrid image with the existing offline app
+set, a RAM-only default trial, native Try/install dialog and the stock graphical
+Debian/Calamares drive workflow. Fresh service/native enrollment runs after real
+boot; no account, shared password, service data, native receipt, machine ID,
+random seed or host SSH key is supplied in the image inputs. Trial changes are
+not the installation source. Persistent USB storage remains outside this first
+candidate; the welcome dialog explains exporting creations before shutdown.
+
+Local bounded-concurrency verification passed **323/323 tests**. This includes
+19 USB tests: first-boot authority/receipt recovery, reviewed installer config,
+actual generated-shell argv boundaries, native fixed-action UI, UDisks policy and
+identity-free recipe preparation. The first parallel full run under emulated
+builder load hit existing subprocess limits (six failures and two cancellations);
+the affected native suites passed 26/26 separately, then the complete suite
+passed with two workers without changing timeouts. Evidence:
+`work/verification/usb-macos-bounded-tests.txt`, `usb-timeout-recheck.txt` and
+`usb-image-tests.txt`. Source/privacy checks pass. Independent review found and
+fixed the runtime receipt normalization and undocumented UDisks lookup issues.
+
+A separate Debian 13 x64 QEMU builder is running without host folders, physical
+disks, USB passthrough or an upstream guest route/DNS. Official cloud/Node hashes
+and signed APT tools were verified. The first ISO build is in progress, with
+source input `0.0.1-pilot.19-b7e6ae84fa27`; transfer ownership was normalized in
+the disposable guest before image copying. Logs remain under ignored
+`work/usb-builder/evidence/`. No bootable ISO, BIOS/UEFI boot, drive-preservation,
+Calamares installation or physical MacBook/PC acceptance is complete yet. Do not
+offer the candidate as friend-ready before the USB acceptance sequence passes.
+
+## Intel MacBook and PC rollout — 2026-10-14
+
+Sean approved expanding to 2012-era Intel MacBooks and basic PCs, with both a
+dedicated-computer edition and a later existing-macOS/Windows app, starting with
+dedicated computers. The [PC rollout](PC-INSTALL.md) records the revised scope
+and gates. An experimental Debian 13 x64 setup now exists in `os/linux-pc/`,
+sharing the protected service, local data and fixed native apps while keeping
+Pi/ARM64 fixture checks separate. It adds a separately pinned x64 runtime,
+format-3 native enrollment, architecture-specific GTK lookup and optional desktop
+startup. No disk, boot, driver, host-network or firmware changes were made.
+
+Local macOS verification passed **299/299 tests**, including seven PC-specific
+tests covering wrong-target/runtime/receipt rejection, fixed commands, empty
+private state, extracted-bundle service/native staging and reversible login
+startup. The full suite required loopback listeners outside the restricted
+sandbox; its earlier sandbox run's HTTP listener denials are not product
+failures. Evidence: `work/verification/pc-expansion-macos-tests.txt`. The PC/Pi
+release verifier checks deterministic bytes, manifest/extraction and both staging
+paths. These are local code/filesystem checks only. No x64 Linux service/native
+installation, physical MacBook/PC qualification, kidOS live USB, friend-ready
+wizard or native macOS/Windows installer is certified. Existing supervised-use,
+parent-authority, containment and giftability limits still apply.
+
+The follow-up uses Sean's unspecified post-2012 MacBook/basic-PC planning
+assumption without requiring a model list. `--check-hardware` now prints a local,
+read-only architecture/RAM/model report, tolerates missing metadata, reads no
+serial/UUID/user/network/disk inventory and never marks hardware accepted. It
+keeps the live device trial and deliberate drive selection separate. Five new
+hardware-report tests plus the seven PC installer tests passed locally (12/12);
+public-source and extracted-bundle checks cover the new module. Physical/x64
+Linux acceptance remains pending.
+
 Milestone 0 is complete. The working app set now includes My Stuff, Code Editor, Applications, Play, Library, Explore and local family Mailbox, alongside multiple desktop windows and workspace/draft recovery. The Pi source archive, guarded installer and isolated ARM64 Linux foundation are implemented. This app wave adds project imports/duplicates and reversible file operations, installed-version defaults, PDF/EPUB reading and collection metadata, six real local websites with HTTP activities, and local letters with durable drafts. Full product acceptance, physical input and Pi behavior remain open. Sean selected a Raspberry Pi 5 with 8 GB RAM for installation by Sunday 11 October 2026; actual hardware acceptance remains pending.
 
 The corrected pilot.12 native launcher candidate is in progress. Actual Linux **Applications → Paint**, **OpenTTD**, **Calculator** and **Writer** launches now work, and repeating OpenTTD focuses the existing game. Calculator pointer input and Writer document recovery also have bounded graphical evidence. The remaining native launcher checks and broader everyday-computer acceptance remain pending; see the dated launcher follow-up below.
@@ -125,4 +339,4 @@ Sean withdrew the offline Wikipedia request after reviewing the full English arc
 
 The project owner approved public open-source distribution through their personal GitHub account and delegated the license choice. Original kidOS code, artwork and documentation now use MIT; vendor notices remain separate. The initial public-source candidate is pilot.17. It adds a public README and clean-data screenshot, contribution/security guidance, an exact public-source allowlist and credential/path checks, a CI matrix, deterministic archive/extraction/staging verification, and a workflow that prepares draft prereleases. Local verification passed 292 tests on macOS, including the new publication-boundary regression tests. GitHub execution and publication are recorded by the repository's runs and releases; they are not implied by this local preparation record.
 
-The initial distribution is source plus a portable developer installation bundle. Optional GitHub release notifications and manual downloads precede the separate parent-authorized updater milestone in [UPDATES.md](UPDATES.md). No automatic updater, bootable image, physical-Pi acceptance or giftable-device acceptance is claimed.
+The initial distribution is source plus a portable developer installation bundle. Optional GitHub release notifications and manual downloads precede the separate parent-authorized updater milestone in [UPDATES.md](UPDATES.md). That initial source-only release did not include a bootable image. The later experimental amd64 USB and its scoped software checks are recorded above; no automatic updater, physical-Pi acceptance or giftable-device acceptance is claimed.

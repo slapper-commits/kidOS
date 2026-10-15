@@ -13,7 +13,7 @@ export function parseOptions(args) {
   if (args.length === 2 && args[0] === '--stage' && args[1]) return { install: false, directory: resolve(args[1]) };
   throw new Error('Use --install --desktop-user NAME on the Pi, or --stage EMPTY_DIRECTORY for a local rehearsal.');
 }
-export async function preflightPiApplications(user, { checkFile = protectedFile } = {}) {
+export async function preflightPiApplications(user, { checkFile = protectedFile, desktopExecutables = ['/usr/bin/chromium', '/usr/bin/labwc'] } = {}) {
   const catalog = piCatalog(user), files = new Map();
   for (const id of PI_APP_IDS) {
     const app = catalog[id];
@@ -21,7 +21,7 @@ export async function preflightPiApplications(user, { checkFile = protectedFile 
     for (const path of app.extraExecutables || []) files.set(path, true);
     for (const path of app.data) if (!files.has(path)) files.set(path, false);
   }
-  for (const path of ['/usr/bin/chromium', '/usr/bin/labwc']) files.set(path, true);
+  for (const path of desktopExecutables) files.set(path, true);
   for (const [path, executable] of files) await checkFile(path, { executable, read: false });
   return [...files.keys()];
 }

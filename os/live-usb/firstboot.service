@@ -1,0 +1,16 @@
+[Unit]
+Description=Prepare this boot's fresh kidOS desktop
+After=local-fs.target live-config.service
+Before=display-manager.service
+ConditionPathExists=/opt/kidos-usb/source/RELEASE.json
+
+[Service]
+Type=oneshot
+ExecStart=/opt/kidos-node/v24.21.0/bin/node /opt/kidos-usb/firstboot.mjs
+Environment=NODE_OPTIONS=
+UMask=0022
+RemainAfterExit=true
+TimeoutStartSec=180
+
+[Install]
+WantedBy=multi-user.target

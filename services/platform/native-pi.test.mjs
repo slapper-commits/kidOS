@@ -269,6 +269,9 @@ test('desktop reopen carries the verified Wayland session type to the new Chromi
 test('Pi live install and user setup refuse the development host before host mutation', { skip: process.platform === 'linux' && process.arch === 'arm64' }, async () => {
   const installer = fileURLToPath(new URL('../../os/native-session/install-pi.mjs', import.meta.url));
   const setup = fileURLToPath(new URL('../../os/native-session/native-launch.mjs', import.meta.url));
-  for (const [path, args] of [[installer, ['--install', '--desktop-user', 'casey']], [setup, ['--setup-user']]]) await assert.rejects(execute(process.execPath, [path, ...args], { timeout: 5000 }), error => error.code === 1 && /Linux ARM64/.test(error.stderr));
+  await assert.rejects(execute(process.execPath, [installer, '--install', '--desktop-user', 'casey'], { timeout: 5000 }), error => error.code === 1 && /Linux ARM64/.test(error.stderr));
+  // The shared user-setup entry now accepts an enrolled x64 Linux desktop;
+  // exercise early host rejection only where that target cannot be valid.
+  if (!(process.platform === 'linux' && process.arch === 'x64')) await assert.rejects(execute(process.execPath, [setup, '--setup-user'], { timeout: 5000 }), error => error.code === 1 && /Linux ARM64|Linux x64/.test(error.stderr) && !/ENOENT/.test(error.stderr));
   await assert.rejects(installRegistration(template), /Linux ARM64/);
 });

@@ -20,7 +20,7 @@ The initial storage schema is versioned. Future migrations must be explicit, sou
 
 | Decision | Reason and tradeoff |
 | --- | --- |
-| Node.js 22+ and standard-library HTTP/filesystem/test APIs | Fits the existing scaffold, runs locally, and avoids native build dependencies on the later ARM64 target. Local development uses a supported LTS runtime; the Pi/VM installation pins Node.js v24.21.0 Linux ARM64. A full image recipe remains future work. Small modules keep validation, persistence, serving, and UI concerns separate. |
+| Node.js 22+ and standard-library HTTP/filesystem/test APIs | Fits the existing scaffold, runs locally, and avoids native build dependencies on the later ARM64 target. Local development uses a supported LTS runtime; the Pi/VM installation pins Node.js v24.21.0 Linux ARM64. The separate amd64 USB recipe includes its own runtime pin and build guard. Small modules keep validation, persistence, serving, and UI concerns separate. |
 | Plain browser modules and local CSS/SVG assets | The small Day 0 UI needs no framework or build service. It remains inspectable and usable offline once the local runtime is present. Revisit an editor library when editing capabilities justify its size and license review. |
 | Versioned JSON state with validated, recoverable writes | Keeps the first installation understandable and portable. Bounded project sizes suit this slice; a large media catalog or many simultaneous writers will need a different store. |
 | Immutable installed snapshots | The child can experiment without unexpectedly changing an installed app. Explicit versions make launch and later rollback behavior understandable. |
@@ -59,7 +59,7 @@ The [native application launcher](NATIVE-APPS.md) adds a fixed ordinary-user Chr
 4. Private network services: actual DNS, HTTP/HTTPS, local search, and curriculum websites. Use `home.arpa` names on the dedicated local network.
 5. Linux appliance: kiosk startup, supervision, enforced egress policy, storage, updates, and recovery.
 
-Start on the current computer, add an isolated Linux integration target, then validate physical ARM64 hardware. A cloud preview can show the UI but cannot certify local networking or Linux enforcement. The [Raspberry Pi developer pilot](../os/raspberry-pi/README.md) now supplies a deterministic source archive, staging installer, guarded live installer, systemd unit and optional desktop-user launcher. The archive and staging paths are verified on macOS. The same service/runtime and persistence paths now have actual Debian ARM64 VM evidence; physical Pi acceptance remains pending. No kidOS bootable appliance image has been built.
+Start on the current computer, add an isolated Linux integration target, then validate physical ARM64 hardware. A cloud preview can show the UI but cannot certify local networking or Linux enforcement. The [Raspberry Pi developer pilot](../os/raspberry-pi/README.md) now supplies a deterministic source archive, staging installer, guarded live installer, systemd unit and optional desktop-user launcher. The archive and staging paths are verified on macOS. The same service/runtime and persistence paths now have actual Debian ARM64 VM evidence; physical Pi acceptance remains pending. A separate amd64 [USB development image](../os/live-usb/README.md) has been built and reaches kidOS in isolated BIOS/UEFI boots after one normal browser reload. Native Write save/reopen passed on the unchanged base payload; the corrected boot policy passed full synthetic-drive Try/Cancel preservation. Offline Calamares installation and two USB-absent UEFI password logins passed, with stable installed identity and native document bytes/text. Boot two reopened the document through Dolphin/LibreOffice after kidOS shortcut timeouts. Automatic page/native-launch reliability and physical hardware qualification remain pending.
 
 Six original loopback HTTP websites, search, fixed forms/JSON and the Explore Request lab now run locally. Private DNS, HTTPS, device trust enrollment and enforced network policy remain planned. Each family/device must receive a unique identity and local certificate-authority material at first boot. Enrolling other devices requires explicit DNS and certificate-trust configuration.
 
@@ -76,6 +76,53 @@ The guest has no default route or upstream DNS. QEMU restricts user networking a
 Actual Linux evidence covers exact synthetic projects, installed files, Trash, game progress, media bytes/positions and workspace drafts across service restart, a forced service-process crash with supervised recovery, whole-directory backup restoration and an offline reboot with a changed boot ID. That exact reboot check kept the desktop browser disabled so normal UI workspace writes could not alter the baseline. The earlier browser-enabled baseline mismatch came from a synthetic fixture with inconsistent stacking and JSON field order. It remains recorded; the corrected fixture subsequently passed an exact check after graphical reboot. Service properties and loopback listeners were inspected. A real tty1 PAM/logind session launched labwc on the virtual DRM display and then Chromium through labwc autostart; its desktop was visually confirmed. A window gesture/focus correction found during that session passed the actual guest drag and corner-resize retest. Task switching, minimization, the installed app, the text reader and recovered draft were visibly checked; F5 reload restored the altered workspace.
 
 Guest-only automatic login and passwordless sudo belong to the explicitly disposable developer account. They are not Pi setup defaults or child controls. Read-only renderer process checks found NoNewPrivs=1, seccomp filter mode, no effective capabilities and separate user/PID namespaces from the browser process. This verifies those Chromium renderer mechanisms, not complete UI acceptance, audible playback, physical Pi performance or kidOS child-code containment. Local evidence is retained under ignored `work/linux-vm/evidence/`, including `install-fixed.log`, `recovery.log`, `offline-reboot.txt`, `packages-and-isolation.txt`, `reboot-and-graphical.txt`, `tests-final-macos.txt` and `install-focus-and-tests-linux.txt`, `final-graphical-boot-api.json` and `browser-sandbox.json`. Screenshots are under `work/verification/linux-desktop.jpg` and `linux-workspace-reload.jpg`.
+
+## Intel/AMD installation track — 2026-10-14
+
+The owner-approved [PC track](PC-INSTALL.md) reuses the same service unit, private
+data directory, release manifest and source archive. `os/linux-pc/` supplies
+separate Debian 13 x64 entry points; it never partitions storage or configures
+boot, drivers or networking. The shared service core selects the independently
+pinned x64 archive only for `linux-pc` and records its architecture. ARM64 Pi/VM
+wrappers retain their own checks. The runtime checker rejects receipts/binaries
+for a different architecture and non-installable staging trees.
+
+Native format-3 receipts enroll an ordinary PC user separately from format-2 Pi
+and format-1 disposable VM identities. The fixed app catalog and source hashes
+remain enforced; GTK paths select the actual architecture. PC startup preserves
+the normal Linux desktop/panel and uses a dedicated Chromium app profile. This
+first native PC path requires Wayland and a real user-owned session/DBus socket;
+an X11-only device is not accepted by that bridge. KDE window decorations and
+game refocusing differ from labwc, and no integrated native taskbar is claimed.
+The separate USB path has actual offline x64 installation, chosen-password login
+and document persistence through two UEFI boots. The first page required Ctrl+R;
+boot two used Dolphin/LibreOffice after the kidOS Write shortcut timed out.
+Physical hardware, full backup/restore and launcher reliability remain pending.
+
+The later existing-macOS/Windows edition needs its own packaging and native
+adapters. Browser preview portability does not certify those OS integrations.
+
+## Try/install USB track — 2026-10-14
+
+`os/live-usb/prepare.mjs` prepares allowlisted source and a SHA-pinned x64 Node
+runtime for Debian live-build, without mounting or flashing. The guarded build
+entry requires a separately marked disposable Debian amd64 QEMU/KVM guest.
+Debian's live-boot/SquashFS RAM overlay is the default trial, with persistence,
+GPT auto/swap and resume disabled. KDE automount defaults and a temporary-user
+UDisks rule prevent automatic internal-drive mounts; this is not containment
+against an administrator or a hardened child account.
+
+An actual boot runs the existing guarded service/native installers, using the
+ordinary UID-1000 account created by live-config or Calamares. Code, accounts,
+runtime receipts, family data and machine/host identities are never captured
+from the builder filesystem. Bootstrap validates existing receipts rather than
+resetting creations on later boots. A native GTK dialog offers Try by default;
+the optional install button opens Debian's fixed Calamares wrapper after a
+separate warning. Browser content has no installation API. Calamares' reviewed
+disk-selection/summary/execute order is retained and its unpacker uses the clean
+read-only SquashFS, so live trial files/enrollments are not installed. Installed
+homes are private, reserved account names are rejected and normal login remains
+required. See [USB build, behavior and recorded acceptance](../os/live-usb/README.md).
 
 ## Primary references
 

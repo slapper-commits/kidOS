@@ -4,6 +4,22 @@ import { keys } from './extension/protocol.mjs';
 
 export const VM_USER = Object.freeze({ username: 'kidos-test', uid: 1000, gid: 1000, homedir: '/home/kidos-test' });
 export const VM_SESSION = Object.freeze({ targetKind: 'disposable-linux-vm', user: VM_USER });
+export const isNativeDesktop = session => ['raspberry-pi', 'linux-pc'].includes(session?.targetKind);
+
+export function validatePcFacts({ platform, arch, uid, osRelease }, install = false) {
+  if (platform !== 'linux' || arch !== 'x64' || (install ? uid !== 0 : !Number.isSafeInteger(uid) || uid < 1000)) throw new Error('PC setup requires Linux x64 and the correct root/ordinary-user authority.');
+  if (!/^ID=["']?debian["']?$/m.test(osRelease || '') || !/^VERSION_ID=["']?13["']?$/m.test(osRelease || '') || !/^VERSION_CODENAME=["']?trixie["']?$/m.test(osRelease || '')) throw new Error('PC setup currently requires Debian 13 Trixie amd64.');
+}
+export async function pcTarget({ install = false } = {}) {
+  const identity = { platform: process.platform, arch: process.arch, uid: process.getuid?.() };
+  // Reject macOS, Windows and the ARM fixture before any device reads or writes.
+  if (identity.platform !== 'linux' || identity.arch !== 'x64' || (install ? identity.uid !== 0 : !Number.isSafeInteger(identity.uid) || identity.uid < 1000)) throw new Error('PC setup requires Linux x64 and the correct root/ordinary-user authority.');
+  const osRelease = await readFile('/etc/os-release', 'utf8');
+  validatePcFacts({ ...identity, osRelease }, install);
+  const systemd = await lstat('/run/systemd/system');
+  if (!systemd.isDirectory() || systemd.isSymbolicLink()) throw new Error('PC setup requires a normally booted systemd desktop.');
+  return { targetKind: 'linux-pc', arch: 'x64', osRelease };
+}
 export function validateDesktopUser(user) {
   if (!keys(user, ['username', 'uid', 'gid', 'homedir']) || !/^[a-z_][a-z0-9_-]{0,31}$/.test(user.username || '') ||
       !Number.isSafeInteger(user.uid) || user.uid < 1000 || user.uid > 2147483647 ||

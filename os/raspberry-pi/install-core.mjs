@@ -2,7 +2,7 @@ import { chmod, chown, lstat, mkdir, readFile, readdir, readlink, realpath, rena
 import { dirname, resolve } from 'node:path';
 import { execFileSync } from 'node:child_process';
 import { hash, json, releaseId, verifyRelease } from './release.mjs';
-import { PILOT_NODE } from './runtime-pin.mjs';
+import { PILOT_NODE, runtimeFor } from './runtime-pin.mjs';
 
 const run = (command, args) => execFileSync(command, args, { encoding: 'utf8', stdio: ['ignore', 'pipe', 'pipe'], env: { PATH: '/usr/sbin:/usr/bin:/sbin:/bin', LANG: 'C' } }).trim();
 const exists = async path => { try { return await lstat(path); } catch (error) { if (error.code === 'ENOENT') return null; throw error; } };
@@ -47,7 +47,8 @@ async function copyRelease(release, destination) {
   await newFile(resolve(destination, 'RELEASE.json'), json(release.manifest));
 }
 
-export async function stageRelease(root, targetRoot, nodeVersion = PILOT_NODE.version) {
+export async function stageRelease(root, targetRoot, nodeVersion = PILOT_NODE.version, arch = 'arm64') {
+  const pin = runtimeFor(arch);
   const release = await verifyRelease(root);
   const unit = serviceBytes(release);
   runtimeVersion(nodeVersion);
@@ -61,18 +62,19 @@ export async function stageRelease(root, targetRoot, nodeVersion = PILOT_NODE.ve
   await safeDirectory(resolve(canonical, 'var/lib/kidos'), 0o700);
   await copyRelease(release, resolve(canonical, 'opt/kidos/releases', id));
   await symlink(`releases/${id}`, resolve(canonical, 'opt/kidos/current'));
-  await newFile(resolve(canonical, 'opt/kidos/runtime.json'), json({ nodeVersion, executable: PILOT_NODE.executable, archiveSha256: PILOT_NODE.archiveSha256, stageOnly: true }));
+  await newFile(resolve(canonical, 'opt/kidos/runtime.json'), json({ nodeVersion, executable: pin.executable, archiveSha256: pin.archiveSha256, ...(arch === 'x64' ? { targetKind: 'linux-pc', arch } : {}), stageOnly: true }));
   await newFile(resolve(canonical, 'etc/systemd/system/kidos.service'), unit);
-  await newFile(resolve(canonical, 'STAGING-ONLY.txt'), 'Staging only: ownership is the staging user. No service account was created and no service was enabled. Run the guarded installer on the Pi; do not copy this tree over /.\n');
+  await newFile(resolve(canonical, 'STAGING-ONLY.txt'), 'Staging only: ownership is the staging user. No service account was created and no service was enabled. Run the guarded installer on the target; do not copy this tree over /.\n');
   return { id, target: canonical, staged: true };
 }
 
-function requireLinuxRoot() {
-  if (process.platform !== 'linux' || process.arch !== 'arm64' || process.getuid?.() !== 0) throw new Error('Live installation requires root on Linux ARM64.');
+function requireLinuxRoot(arch = 'arm64') {
+  if (process.platform !== 'linux' || process.arch !== arch || process.getuid?.() !== 0) throw new Error(`Live installation requires root on Linux ${arch === 'arm64' ? 'ARM64' : 'x64'}.`);
 }
-async function runtimePreflight() {
-  requireLinuxRoot();
-  if (!await exists('/usr/bin/chromium') || !await exists('/usr/bin/labwc') || !await exists('/run/systemd/system')) throw new Error('Install requires Chromium, labwc, and a running systemd.');
+async function runtimePreflight(arch) {
+  requireLinuxRoot(arch);
+  const pin = runtimeFor(arch);
+  if (!await exists('/usr/bin/chromium') || (arch === 'arm64' && !await exists('/usr/bin/labwc')) || !await exists('/run/systemd/system')) throw new Error('Install requires Chromium, a supported desktop, and a running systemd.');
   const node = await realpath(PILOT_NODE.executable);
   if (node !== PILOT_NODE.executable) throw new Error('The dedicated Node runtime must not be a symbolic link.');
   for (const path of ['/opt', '/opt/kidos-node', PILOT_NODE.directory, `${PILOT_NODE.directory}/bin`, node]) {
@@ -80,10 +82,10 @@ async function runtimePreflight() {
     if (info.isSymbolicLink() || info.uid !== 0 || info.mode & 0o022 || (path === node ? !info.isFile() || !(info.mode & 0o111) : !info.isDirectory())) throw new Error('The dedicated Node runtime and its parent directories must be root-owned and not writable by other users.');
   }
   const version = runtimeVersion(run(node, ['--version']));
-  if (run(node, ['-p', 'process.platform + "/" + process.arch']) !== 'linux/arm64') throw new Error('The dedicated Node runtime must be Linux ARM64.');
+  if (run(node, ['-p', 'process.platform + "/" + process.arch']) !== `linux/${arch}`) throw new Error('The dedicated Node runtime must match the installation architecture.');
   const license = await lstat(`${PILOT_NODE.directory}/LICENSE`);
   if (!license.isFile() || license.isSymbolicLink() || license.uid !== 0 || license.mode & 0o022) throw new Error('Keep the official Node distribution LICENSE file with the dedicated runtime.');
-  return { nodeVersion: version, executable: node, archiveSha256: PILOT_NODE.archiveSha256, nodeSha256: hash(await readFile(node)) };
+  return { nodeVersion: version, executable: node, archiveSha256: pin.archiveSha256, nodeSha256: hash(await readFile(node)), ...(arch === 'x64' ? { arch } : {}) };
 }
 async function serviceIdentity() {
   let passwd = '';
@@ -113,9 +115,10 @@ async function rejectServiceOverrides() {
 // Callers must perform their own target identity checks before entering this
 // common privileged path. This module has no live CLI or target bypass flag.
 export async function installLive(root, target) {
-  requireLinuxRoot();
-  if (!target || !['raspberry-pi', 'disposable-linux-vm'].includes(target.targetKind)) throw new Error('A validated installation target is required.');
-  const release = await verifyRelease(root), runtime = { ...target, ...await runtimePreflight() }, id = releaseId(release.manifest);
+  const arch = target?.targetKind === 'linux-pc' ? 'x64' : 'arm64';
+  requireLinuxRoot(arch);
+  if (!target || !['raspberry-pi', 'disposable-linux-vm', 'linux-pc'].includes(target.targetKind)) throw new Error('A validated installation target is required.');
+  const release = await verifyRelease(root), runtime = { ...target, ...await runtimePreflight(arch) }, id = releaseId(release.manifest);
   const unit = serviceBytes(release);
   await rejectServiceOverrides();
   for (const path of ['/opt', '/opt/kidos', '/opt/kidos/releases', '/etc/systemd', '/etc/systemd/system', '/var/lib']) await safeDirectory(path, 0o755, true);

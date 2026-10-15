@@ -23,9 +23,9 @@ async function userDirectory(path, uid, privateMode = false) {
   if (!details) await mkdir(path, { mode: 0o700 });
   if (privateMode) await chmod(path, 0o700);
 }
-async function desktopUser() {
+async function desktopUser(arch) {
   const user = userInfo();
-  if (process.platform !== 'linux' || process.arch !== 'arm64' || user.uid < 1000 || process.getuid?.() === 0) throw new Error('Run kiosk setup as your already-enrolled ordinary desktop user, without sudo.');
+  if (process.platform !== 'linux' || process.arch !== arch || user.uid < 1000 || process.getuid?.() === 0) throw new Error('Run kiosk setup as your already-enrolled ordinary desktop user, without sudo.');
   return user;
 }
 export function chromiumArguments(profile, nativeExtension = false, presentation = 'kiosk') {
@@ -34,7 +34,7 @@ export function chromiumArguments(profile, nativeExtension = false, presentation
   return [`--user-data-dir=${profile}`, ...(nativeExtension ? ['--load-extension=/opt/kidos-native-session/extension'] : []), '--no-first-run', '--no-default-browser-check', ...(presentation === 'desktop' ? ['--start-maximized', '--app=http://127.0.0.1:8787/'] : ['--kiosk', 'http://127.0.0.1:8787/'])];
 }
 export function desktopAutostartText(command) {
-  if (typeof command !== 'string' || !/^\/opt\/kidos-node\/v[0-9.]+\/bin\/node \/opt\/kidos\/current\/os\/raspberry-pi\/kiosk\.mjs --launch$/.test(command)) throw new Error('Unexpected Pi desktop startup command.');
+  if (typeof command !== 'string' || !/^\/opt\/kidos-node\/v[0-9.]+\/bin\/node \/opt\/kidos\/current\/os\/(?:raspberry-pi|linux-pc)\/kiosk\.mjs --launch$/.test(command)) throw new Error('Unexpected Pi/PC desktop startup command.');
   return `[Desktop Entry]\nType=Application\nName=kidOS\nComment=Open the kidOS desktop\nExec=${command}\nIcon=computer\nTerminal=false\nX-kidOS-Managed=true\n`;
 }
 export async function configureDesktopAutostart(user, enable, command) {
@@ -56,9 +56,9 @@ export async function configureDesktopAutostart(user, enable, command) {
   await writeFile(temporary, desired, { flag: 'wx', mode: 0o600 });
   await rename(temporary, path);
 }
-export async function runKiosk(args, { targetCheck, entry, nativeExtension = false, presentation = 'kiosk', desktopAutostartCommand }) {
+export async function runKiosk(args, { targetCheck, entry, nativeExtension = false, presentation = 'kiosk', desktopAutostartCommand, arch = 'arm64' }) {
   if (args.length !== 1 || !['--launch', '--enable-autostart', '--disable-autostart'].includes(args[0])) throw new Error('Choose --launch, --enable-autostart, or --disable-autostart.');
-  const user = await desktopUser();
+  const user = await desktopUser(arch);
   await targetCheck(user);
   await userDirectory(user.homedir, user.uid);
   if (args[0] !== '--launch') {

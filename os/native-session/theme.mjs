@@ -22,8 +22,8 @@ export const THEME_FILES = Object.freeze([
 
 export function themePaths(home, targetKind = 'raspberry-pi', { writerPreview = false } = {}) {
   if (typeof home !== 'string' || !home.startsWith('/') || home === '/' || resolve(home) !== home || /[\0\r\n]/.test(home)) throw new Error('Use a normal absolute home directory.');
-  if (!['raspberry-pi', 'disposable-linux-vm'].includes(targetKind) || typeof writerPreview !== 'boolean' || (writerPreview && targetKind !== 'disposable-linux-vm')) throw new Error('Invalid native theme target or Writer preview selection.');
-  const base = `${home}/.local/share/${targetKind === 'raspberry-pi' ? 'kidos-native' : 'kidos-native-files'}`;
+  if (!['raspberry-pi', 'linux-pc', 'disposable-linux-vm'].includes(targetKind) || typeof writerPreview !== 'boolean' || (writerPreview && targetKind !== 'disposable-linux-vm')) throw new Error('Invalid native theme target or Writer preview selection.');
+  const base = `${home}/.local/share/${targetKind !== 'disposable-linux-vm' ? 'kidos-native' : 'kidos-native-files'}`;
   const config = `${base}/config`, writer = `${config}/${writerPreview ? 'writer-theme-preview' : 'libreoffice'}/4`;
   return { base, config, palette: `${config}/kdeglobals`, calculator: `${config}/kcalcrc`, labwc: `${home}/.config/labwc/themerc-override`, writer, writerUser: `${writer}/user` };
 }

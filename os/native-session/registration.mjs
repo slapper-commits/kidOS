@@ -5,7 +5,7 @@ import { createHash } from 'node:crypto';
 import { execFileSync } from 'node:child_process';
 import { EXTENSION_ID, EXTENSION_ORIGIN, HOST_NAME, keys } from './extension/protocol.mjs';
 import { THEME_FILES } from './theme.mjs';
-import { existingDesktopUser, piTarget, userMatches, validateDesktopUser, VM_USER } from './target.mjs';
+import { existingDesktopUser, piTarget, pcTarget, userMatches, validateDesktopUser, VM_USER } from './target.mjs';
 
 export const ROOT = '/opt/kidos-native-session';
 export const RECEIPT = `${ROOT}/install.json`;
@@ -44,7 +44,7 @@ export function validateRegistration(value, identity) {
   let valid = false;
   if (typeof identity === 'string') valid = keys(value, ['format', 'vmId', 'extensionId', 'hashes']) && value.format === 1 && /^[a-f0-9]{8}-[a-f0-9]{4}-[a-f0-9]{4}-[a-f0-9]{4}-[a-f0-9]{12}$/.test(identity) && value.vmId === identity;
   else {
-    try { validateDesktopUser(value?.user); valid = keys(value, ['format', 'targetKind', 'user', 'extensionId', 'hashes']) && value.format === 2 && value.targetKind === 'raspberry-pi' && userMatches(identity, value.user); } catch {}
+    try { validateDesktopUser(value?.user); valid = keys(value, ['format', 'targetKind', 'user', 'extensionId', 'hashes']) && ((value.format === 2 && value.targetKind === 'raspberry-pi') || (value.format === 3 && value.targetKind === 'linux-pc' && fileNames === FILES)) && userMatches(identity, value.user); } catch {}
   }
   if (!valid || value.extensionId !== EXTENSION_ID || !hashesValid) throw new Error('Invalid native session registration.');
 }
@@ -63,7 +63,7 @@ export async function readRegistration(identity, { optional = false, readProtect
   }
   const manifest = JSON.parse(await readProtected(HOST_MANIFEST, { maxBytes: 2048 }));
   if (JSON.stringify(manifest) !== JSON.stringify(hostManifest())) throw new Error('Unexpected native messaging host registration.');
-  if (registration.format === 2 && (await readProtected(DESKTOP_ENTRY, { maxBytes: 2048 })).toString() !== desktopEntry()) throw new Error('Unexpected kidOS desktop entry.');
+  if ([2, 3].includes(registration.format) && (await readProtected(DESKTOP_ENTRY, { maxBytes: 2048 })).toString() !== desktopEntry()) throw new Error('Unexpected kidOS desktop entry.');
   if (Object.hasOwn(registration.hashes, 'theme/kidos-paint.desktop')) {
     const desktop = await readProtected(PAINT_DESKTOP_ENTRY, { maxBytes: 2048 });
     if (createHash('sha256').update(desktop).digest('hex') !== registration.hashes['theme/kidos-paint.desktop']) throw new Error('Unexpected themed Paint file handler.');
@@ -88,12 +88,30 @@ export async function checkEnrolledPiUser(user, env = process.env) {
   if (installed.runtime?.targetKind !== 'raspberry-pi') throw new Error('The kidOS service installation does not attest a Pi.');
   return { targetKind: 'raspberry-pi', user: enrolled };
 }
+export async function checkEnrolledPcUser(user, env = process.env) {
+  await pcTarget();
+  if (env.HOME !== user.homedir) throw new Error('Use the enrolled ordinary desktop user and home.');
+  const registration = await readRegistration(user);
+  if (registration.format !== 3 || registration.targetKind !== 'linux-pc') throw new Error('A PC native registration is required.');
+  const enrolled = await existingDesktopUser(user.username);
+  if (!userMatches(user, enrolled)) throw new Error('The enrolled desktop identity changed.');
+  const installed = JSON.parse(await protectedFile('/opt/kidos/install-receipt.json', { maxBytes: 128 * 1024 }));
+  const runtime = JSON.parse(await protectedFile('/opt/kidos/runtime.json', { maxBytes: 128 * 1024 }));
+  if (installed.runtime?.targetKind !== 'linux-pc' || installed.runtime.arch !== 'x64' || runtime.targetKind !== 'linux-pc' || runtime.arch !== 'x64' || runtime.stageOnly !== false) throw new Error('The kidOS service installation does not attest a PC.');
+  return { targetKind: 'linux-pc', user: enrolled };
+}
+export async function checkEnrolledDesktopUser(user, env = process.env) {
+  // Preserve the Pi guard for all non-x64 hosts, including development hosts.
+  return process.arch === 'x64' ? checkEnrolledPcUser(user, env) : checkEnrolledPiUser(user, env);
+}
 export async function checkSession(user, env = process.env) {
-  if (process.platform !== 'linux' || process.arch !== 'arm64' || user.uid < 1000 || env.HOME !== user.homedir) throw new Error('Native applications require the enrolled ordinary Linux ARM64 desktop user.');
+  if (process.platform !== 'linux' || !['arm64', 'x64'].includes(process.arch) || user.uid < 1000 || env.HOME !== user.homedir) throw new Error('Native applications require the enrolled ordinary Linux ARM64 or x64 desktop user.');
   const nativeReceipt = JSON.parse(await protectedFile(RECEIPT, { maxBytes: 8192 }));
   let session;
-  if (nativeReceipt.format === 2) session = await checkEnrolledPiUser(user, env);
+  if (nativeReceipt.format === 3) session = await checkEnrolledPcUser(user, env);
+  else if (nativeReceipt.format === 2) session = await checkEnrolledPiUser(user, env);
   else {
+    if (process.arch !== 'arm64') throw new Error('The disposable VM fixture requires ARM64.');
     if (!userMatches(user, VM_USER)) throw new Error('Native applications require the ordinary disposable VM desktop user.');
     const osRelease = (await protectedFile('/usr/lib/os-release')).toString();
     if (!/^ID=debian$/m.test(osRelease) || !/^VERSION_ID="13"$/m.test(osRelease)) throw new Error('Unsupported native application fixture.');

@@ -52,8 +52,8 @@ export async function stageNative(targetRoot, template, { root = sourceRoot } = 
   await writeSources(`${canonical}${ROOT}`, sources, { ...receipt, stageOnly: true });
   await newFile(`${canonical}${HOST_MANIFEST}`, json(hostManifest()));
   await newFile(`${canonical}${PAINT_DESKTOP_ENTRY}`, sources.find(source => source.path === 'theme/kidos-paint.desktop').bytes);
-  if (template.format === 2) await newFile(`${canonical}${DESKTOP_ENTRY}`, desktopEntry());
-  await newFile(`${canonical}/STAGING-ONLY.txt`, 'Native-session staging only. Synthetic enrollment and staging ownership are not a live Pi registration. Run the guarded installer on the target.\n');
+  if ([2, 3].includes(template.format)) await newFile(`${canonical}${DESKTOP_ENTRY}`, desktopEntry());
+  await newFile(`${canonical}/STAGING-ONLY.txt`, `Native-session staging only. Synthetic enrollment and staging ownership are not a live ${template.format === 3 ? 'PC' : 'Pi'} registration. Run the guarded installer on the target.\n`);
   return { staged: true, installable: false, target: canonical, files: FILES.length };
 }
 async function existingSystemFile(path, expected) {
@@ -65,13 +65,14 @@ async function existingSystemFile(path, expected) {
 // Target-specific entry points must complete hardware/user/package checks
 // first. This shared publication function has no live command-line bypass.
 export async function installRegistration(template) {
-  if (process.platform !== 'linux' || process.arch !== 'arm64' || process.getuid?.() !== 0) throw new Error('Native registration installation requires root on Linux ARM64.');
+  const arch = template?.format === 3 && template.targetKind === 'linux-pc' ? 'x64' : 'arm64';
+  if (process.platform !== 'linux' || process.arch !== arch || process.getuid?.() !== 0) throw new Error(`Native registration installation requires root on Linux ${arch === 'arm64' ? 'ARM64' : 'x64'}.`);
   const { sources, hashes } = await readSources(sourceRoot), receipt = receiptFor(template, hashes);
   const manifestBytes = json(hostManifest());
   const manifestExists = await existingSystemFile(HOST_MANIFEST, manifestBytes);
   const paintDesktop = sources.find(source => source.path === 'theme/kidos-paint.desktop').bytes.toString();
   const paintDesktopExists = await existingSystemFile(PAINT_DESKTOP_ENTRY, paintDesktop);
-  const desktopExists = template.format === 2 ? await existingSystemFile(DESKTOP_ENTRY, desktopEntry()) : false;
+  const desktopExists = template.format !== 1 ? await existingSystemFile(DESKTOP_ENTRY, desktopEntry()) : false;
   const previous = Boolean(await info(ROOT));
   if (previous) await readRegistration(identityFor(template));
   for (const path of ['/opt', '/etc', '/etc/chromium', '/etc/chromium/native-messaging-hosts', '/usr', '/usr/share', '/usr/share/applications']) await directory(path);
@@ -83,7 +84,7 @@ export async function installRegistration(template) {
   catch (error) { if (backup) await rename(backup, ROOT); throw error; }
   if (!manifestExists) await newFile(HOST_MANIFEST, manifestBytes);
   if (!paintDesktopExists) await newFile(PAINT_DESKTOP_ENTRY, paintDesktop);
-  if (template.format === 2 && !desktopExists) await newFile(DESKTOP_ENTRY, desktopEntry());
+  if (template.format !== 1 && !desktopExists) await newFile(DESKTOP_ENTRY, desktopEntry());
   await readRegistration(identityFor(template));
-  return { installed: true, targetKind: template.format === 2 ? 'raspberry-pi' : 'disposable-linux-vm', extensionId: EXTENSION_ID, root: ROOT, backup, browserRestartRequired: true, processesStopped: false, userSetupRequired: template.format === 2 };
+  return { installed: true, targetKind: template.format === 1 ? 'disposable-linux-vm' : template.targetKind, extensionId: EXTENSION_ID, root: ROOT, backup, browserRestartRequired: true, processesStopped: false, userSetupRequired: template.format !== 1 };
 }

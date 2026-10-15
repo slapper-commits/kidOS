@@ -8,6 +8,7 @@ import { validateDesktopUser } from './target.mjs';
 export function reopenCommand(session) {
   validateDesktopUser(session.user);
   if (session.targetKind === 'raspberry-pi') return ['/opt/kidos/current/os/raspberry-pi/kiosk.mjs', '--launch'];
+  if (session.targetKind === 'linux-pc') return ['/opt/kidos/current/os/linux-pc/kiosk.mjs', '--launch'];
   if (session.targetKind === 'disposable-linux-vm' && /^[a-f0-9]{8}-[a-f0-9]{4}-[a-f0-9]{4}-[a-f0-9]{4}-[a-f0-9]{12}$/.test(session.vmId || '')) return ['/opt/kidos-linux-test/kiosk.mjs', '--launch', '--disposable-vm-id', session.vmId];
   throw new Error('Invalid native desktop target.');
 }
@@ -36,6 +37,7 @@ export async function main(args) {
   } catch {}
   const source = await realpath(command[0]);
   if (session.targetKind === 'raspberry-pi' && !/^\/opt\/kidos\/releases\/\d+\.\d+\.\d+-pilot\.\d+-[a-f0-9]{12}\/os\/raspberry-pi\/kiosk\.mjs$/.test(source)) throw new Error('Unexpected installed Pi kiosk source.');
+  if (session.targetKind === 'linux-pc' && !/^\/opt\/kidos\/releases\/\d+\.\d+\.\d+-pilot\.\d+-[a-f0-9]{12}\/os\/linux-pc\/kiosk\.mjs$/.test(source)) throw new Error('Unexpected installed PC kiosk source.');
   await protectedFile(source, { read: false });
   const child = spawn('/opt/kidos-node/v24.21.0/bin/node', command, { shell: false, env, stdio: 'inherit' });
   child.on('error', () => { process.exitCode = 1; });

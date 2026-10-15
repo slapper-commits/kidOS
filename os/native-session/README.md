@@ -1,5 +1,23 @@
 # Native application session bridge
 
+The experimental [Intel MacBook / PC setup](../linux-pc/README.md) adds a separate
+Debian 13 x64 target. Its format-3 enrollment and Wayland session checks reuse the
+fixed app protocol and protected source graph. Follow that guide for PC setup;
+the physical-Pi and disposable-ARM64-VM instructions below remain target-specific.
+The [pilot.20 USB preview](https://github.com/slapper-commits/kidOS/releases/tag/v0.0.1-pilot.20)
+passed emulated BIOS/UEFI trial startup, full synthetic-drive preservation after
+Try/Cancel, offline UEFI installation and document persistence across two
+installed boots without the USB. Its embedded runtime remains frozen at
+`0.0.1-pilot.19-ea56e10ebac7`; the current portable pilot.20 source bundle is a
+separate artifact. Physical MacBook/PC qualification remains pending.
+
+Startup required Ctrl+R and native-app buttons timed out. Boot one saved,
+closed and reopened a document in kidOS Write; boot two retained its exact
+bytes and text and reopened it through the Linux Documents folder and ordinary
+LibreOffice after two kidOS Write button timeouts. Automatic native-launch
+reliability is unqualified. Follow the [USB guide and tested fallback](../../docs/USB-TRY.md)
+and [verification scope](../../docs/USB-VERIFICATION.md).
+
 This opt-in bridge connects the exact kidOS desktop `http://127.0.0.1:8787/` to a fixed native app/folder catalog. The `0.0.1-pilot.15` candidate supports a registered ordinary user on Raspberry Pi OS Trixie 64-bit Desktop as well as the separately designated Debian 13 ARM64 VM fixture. It does not add a route, privilege or launcher to the `kidos` platform service. Pi installation remains pending; actual VM Applications buttons have opened Paint, OpenTTD, Calculator and Writer; macOS can display the catalog but cannot launch Linux apps. This is supervised integration, not child-account containment or parent authorization. Use the [Sunday Pi guide](../raspberry-pi/SUNDAY.md) for the installation sequence.
 
 ## Boundary and protocol
